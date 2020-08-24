@@ -1,0 +1,158 @@
+
+		<!-- Sidebar -->
+		<div class="sidebar sidebar-style-2" data-background-color="dark2">
+					
+			<div class="sidebar-wrapper scrollbar scrollbar-inner">
+				<div class="sidebar-content">
+
+					{% if user.is_authenticated %}
+
+						<div class="user">
+							<div class="info">
+								<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+								</a>
+								<div class="clearfix"></div>
+
+								<div class="collapse in" id="collapseExample">
+									<ul class="nav">
+										<li>
+											<a href="#profile">
+												<span class="link-collapse">My Profile</span>
+											</a>
+										</li>
+										<li>
+											<a href={% url 'logout' %}>
+												<span class="link-collapse">Logout</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<ul class="nav nav-primary">
+							<li class="nav-item active">
+									<a href="/">
+										<i class="fas fa-home"></i>
+										<p>Dashboard</p>
+									</a>
+							</li>
+							<li class="nav-section">
+								<span class="sidebar-mini-icon">
+									<i class="fa fa-ellipsis-h"></i>
+								</span>
+							</li>
+
+							<li class="nav-item">
+								<a href="/upload">
+									<i class="fas fa-upload"></i>
+									<span class="sub-item">Upload Files</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="/images">
+									<i class="fas fa-image"></i>
+									<span class="sub-item">Images</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="/deleted">
+									<i class="fas fa-trash"></i>
+									<span class="sub-item">Delete All Files</span>
+								</a>
+							</li>
+
+							<li class="nav-item">
+								<a><h3 class="sub-item">Data</h3></a>
+							</li>
+							<li class="nav-item">
+								<a href="{% url 'app:activities'%}">
+									<i class="fas fa-newspaper"></i>
+									<span class="sub-item">Activities</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{% url 'app:database'%}">
+									<i class="fas fa-database"></i>
+									<span class="sub-item">Database</span>
+								</a>
+							</li>
+
+							{% if images %}
+							{% with path=request.path|slice:"6:" %}
+							<li class="nav-item">
+								<a>
+									<h3 class="sub-item">Tests</h3>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a data-toggle="collapse" href="#acr_ct">
+									<i class="fas fa-pen-square"></i>
+									<p>CT Measurements</p>
+									<span class="caret"></span>
+								</a>
+								<div class="collapse" id="acr_ct">
+									<ul class="nav nav-collapse">
+										<li>
+											{% with path='/test'|add:path|add:'/ct1' %}
+											<a href={{path}}>
+												<span class="sub-item">Module 1</span>
+											</a>
+											{% endwith %}
+											{% with path='/test'|add:path|add:'/ct2' %}
+											<a href={{path}}>
+												<span class="sub-item">Module 2</span>
+											</a>
+											{% endwith %}
+											{% with path='/test'|add:path|add:'/ct3' %}
+											<a href={{path}}>
+												<span class="sub-item">Module 3</span>
+											</a>
+											{% endwith %}
+											{% with path='/test'|add:path|add:'/ct4' %}
+											<a href={{path}}>
+												<span class="sub-item">Module 4</span>
+											</a>
+											{% endwith %}
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li class="nav-item">
+								<a data-toggle="collapse" href="#mri">
+									<i class="fas fa-pen-square"></i>
+									<p>MRI</p>
+									<span class="caret"></span>
+								</a>
+								<div class="collapse" id="mri">
+									<ul class="nav nav-collapse">
+										<li>
+											{% with path='/test'|add:path|add:'/mri1' %}
+											<a href={{path}}>
+												<span class="sub-item">Module 1</span>
+											</a>
+											{% endwith %}
+										</li>
+									</ul>
+								</div>
+							</li>
+							{% endwith %}
+							{% endif %}
+							{% if results %}
+							<li class="nav-item">
+								<a>
+									<h3 class="sub-item">Export Results</h3>
+								</a>
+							</li>
+								<li class="nav-item">
+									<a href="{% url 'app:database'%}">
+										<i class="fas fa-archive"></i>
+										<span class="sub-item">PDF</span>
+									</a>
+								</li>
+							{% endif %}
+						</ul>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<!-- End Sidebar -->

@@ -1,0 +1,211 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="panel-header bg-primary-gradient">
+      <div class="page-inner py-5">
+        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+          <div>
+            <h2 class="text-white pb-2 fw-bold">Images</h2>
+          </div>
+          <div class="ml-md-auto py-2 py-md-0">
+          </div>
+        </div>
+      </div>
+    </div>
+  {% if not images %}
+    <div class="page-inner mt--5">
+      <div class="card full-height">
+        <div class="card-body">
+          {% if form %}
+          <div class="card-title">Upload an image or folder to get started</div>
+          <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+            <form method = "post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-white btn-border btn-round mr-2">Upload</button>
+            </form>
+          {% else %}
+              <div class="card-title">You currently have no DICOM files open. Upload files to get started.</div>
+              <br/>
+              <a href="/upload" type="submit" class="btn btn-white btn-border btn-round mr-2">Upload DICOM files</a>
+          {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% elif images %}
+    <div class="page-inner mt--5">
+      <div class="card full-height">
+        <div class="card-body">
+          <div class="d-flex flex-wrap justify-content-around pb-2 pt-4" style="height: 240px; overflow-y: scroll;">
+            <table class="table" cellspacing="0">
+                <h3>DICOM Header</h3>
+                <thead>
+                  <tr>
+                      <th>Key</th>
+                      <th>Value</th>
+                  </tr>
+                </thead>
+                <tbody id="file_data">
+                    {% for tag, value in header.items %}
+                    <tr>
+                        <td>{{ tag }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-inner mt--5">
+      <div class="card full-height">
+        <div class="card-body">
+            <form method="post">
+            {% for image in images %}
+                <div style="display: inline-block; width: 20%; float: left;">
+                <div class="form-group">
+                    <div class="selectgroup w-100">
+                        <label class="selectgroup-item">
+                            <input type="radio"
+                                   name="value"
+                                   value="{{ image.slug }}"
+                                   class="selectgroup-input"
+                                   onchange="javascript:location.href = '/image/' + this.value"
+                                    {% if request.path|slice:"7:" == image.slug %}
+                                      checked="checked"
+                                    {% endif %}
+                            >
+                            <img src="{{ image.image.url }}" class="selectgroup-button"
+                                 style="width: 100%" />
+                        </label>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap justify-content-around">
+                    <p>{{ image.name }}</p>
+                </div>
+                </div>
+            {% endfor %}
+            </form>
+          <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+{% endblock content %}
+
+{% block javascripts %}
+
+	<script src="/static/assets/js/demo.js"></script>
+    <script type="text/javascript">
+        window.onload = function(){
+            location.href=document.getElementById("selectbox").value;
+        }
+    </script>
+	<script>
+		Circles.create({
+			id:'circles-1',
+			radius:45,
+			value:60,
+			maxValue:100,
+			width:7,
+			text: 5,
+			colors:['#f1f1f1', '#FF9E27'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		Circles.create({
+			id:'circles-2',
+			radius:45,
+			value:70,
+			maxValue:100,
+			width:7,
+			text: 36,
+			colors:['#f1f1f1', '#2BB930'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		Circles.create({
+			id:'circles-3',
+			radius:45,
+			value:40,
+			maxValue:100,
+			width:7,
+			text: 12,
+			colors:['#f1f1f1', '#F25961'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+
+		var mytotalIncomeChart = new Chart(totalIncomeChart, {
+			type: 'bar',
+			data: {
+				labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+				datasets : [{
+					label: "Total Income",
+					backgroundColor: '#ff9e27',
+					borderColor: 'rgb(23, 125, 255)',
+					data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					display: false,
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							display: false //this will remove only the label
+						},
+						gridLines : {
+							drawBorder: false,
+							display : false
+						}
+					}],
+					xAxes : [ {
+						gridLines : {
+							drawBorder: false,
+							display : false
+						}
+					}]
+				},
+			}
+		});
+        $('form .autosubmit').on('change', function() {
+           this.form.submit();
+        });
+		$('#lineChart').sparkline([105,103,123,100,95,105,115], {
+			type: 'line',
+			height: '70',
+			width: '100%',
+			lineWidth: '2',
+			lineColor: '#ffa534',
+			fillColor: 'rgba(255, 165, 52, .14)'
+		});
+	</script>
+
+{% endblock javascripts %}
