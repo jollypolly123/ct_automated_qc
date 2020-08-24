@@ -120,7 +120,6 @@ python-dateutil==2.8.0
 python-decouple==3.3
 pytz==2019.2
 PyWavelets==1.1.1
-pypiwin32==227
 pywinpty==0.5.5
 PyYAML==5.1.2
 pyzmq==18.1.0
