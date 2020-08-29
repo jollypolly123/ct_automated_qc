@@ -100,7 +100,11 @@ def test(request, slug, test_name):
                   'mri1': ['Default', qa_tests_8_3.get_study_information]}
     item = Document.objects.get(slug=slug).docfile
     doc = dcmread(item.open(), force=True)
-    res, image = test_types[test_name][1](doc)
+
+    try:
+        res, image = test_types[test_name][1](doc)
+    except:
+        return render(request, 'error.html')
 
     image -= np.min(image)
     image = np.divide(image, np.max(image))

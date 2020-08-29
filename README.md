@@ -1,1 +1,6 @@
-# proj_charon
+# Project Charon
+## lol
+
+
+
+https://github.com/HubSpot/hubspot-api-python for CRM
