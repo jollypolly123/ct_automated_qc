@@ -12,8 +12,8 @@ from django.views.static import serve
 
 urlpatterns = [
     path('admin', admin.site.urls),
-    path("", include("authentication.urls")),  # add this
-    path("", include("app.urls")),  # add this
+    path('accounts', include('django.contrib.auth.urls')),
+    path("", include("authentication.urls")),
+    path("", include("app.urls")),
 ] + static(settings.MEDIA_URL, serve, document_root=settings.MEDIA_ROOT) \
               + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-

@@ -42,6 +42,37 @@
 									<i class="fa fa-ellipsis-h"></i>
 								</span>
 							</li>
+							<li class="nav-item">
+								<a data-toggle="collapse" href="#steps">
+									<i class="fas fa-pen-square"></i>
+									<p>CT Phantom Testing</p>
+									<span class="caret"></span>
+								</a>
+								<div class="collapse" id="steps">
+									<ul class="nav nav-collapse">
+										<li class="nav-item">
+											<a href="/upload">
+												<span class="sub-item">1. Phantom Data Form</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="/upload">
+												<span class="sub-item">2. Calibrate Scanner</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="/upload">
+												<span class="sub-item">3. Phantom and Scanner Alignment</span>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="/upload">
+												<span class="sub-item">4. Scan Phantom</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</li>
 
 							<li class="nav-item">
 								<a href="/upload">
@@ -62,7 +93,7 @@
 								</a>
 							</li>
 
-							<li class="nav-item">
+							<li style="padding: 0px 28px; color: #b9babf">
 								<a><h3 class="sub-item">Data</h3></a>
 							</li>
 							<li class="nav-item">
@@ -80,7 +111,7 @@
 
 							{% if images %}
 							{% with path=request.path|slice:"6:" %}
-							<li class="nav-item">
+							<li style="padding: 0px 28px; color: #b9babf">
 								<a>
 									<h3 class="sub-item">Tests</h3>
 								</a>
@@ -126,36 +157,10 @@
 									</ul>
 								</div>
 							</li>
-							<li class="nav-item">
-								<a data-toggle="collapse" href="#mri">
-									<i class="fas fa-pen-square"></i>
-									<p>MRI</p>
-									<span class="caret"></span>
-								</a>
-								<div class="collapse" id="mri">
-									<ul class="nav nav-collapse">
-										{% if request.path == "/images" %}
-										<li>
-											<a>
-												<span class="sub-item">Please choose an image</span>
-											</a>
-										</li>
-										{% else %}
-										<li>
-											{% with path='/test'|add:path|add:'/mri1' %}
-											<a href="#">
-												<span class="sub-item">Module 1</span>
-											</a>
-											{% endwith %}
-										</li>
-										{% endif %}
-									</ul>
-								</div>
-							</li>
 							{% endwith %}
 							{% endif %}
 							{% if results %}
-							<li class="nav-item">
+							<li style="padding: 0px 28px; color: #b9babf">
 								<a>
 									<h3 class="sub-item">Export Results</h3>
 								</a>

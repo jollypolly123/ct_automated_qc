@@ -6,6 +6,7 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+{% load custom_tags %}
 
     <div class="page-inner">
         <div class="page-header">
@@ -44,9 +45,115 @@
                                 <img src="data:image/png;base64,{{image}}" width="80%">
                             </div>
                             <div class="col-md-6 col-lg-4">
-                                <p>{{ results }}</p>
+                        <table class="table mt-3">
+                            {% if test_name == 'CT Number Accuracy'%}
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Polyethylene</th>
+                                    <th scope="col">Acrylic</th>
+                                    <th scope="col">Bone</th>
+                                    <th scope="col">Air</th>
+                                    <th scope="col">Water</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mean</td>
+                                    <td>{{ results|get_item:"Polyethylene"|get_item:"Mean" }}</td>
+                                    <td>{{ results|get_item:"Acrylic"|get_item:"Mean" }}</td>
+                                    <td>{{ results|get_item:"Bone"|get_item:"Mean" }}</td>
+                                    <td>{{ results|get_item:"Air"|get_item:"Mean" }}</td>
+                                    <td>{{ results|get_item:"Water"|get_item:"Mean" }}</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Standard Deviation</td>
+                                    <td>{{ results|get_item:"Polyethylene"|get_item:"Standard Deviation" }}</td>
+                                    <td>{{ results|get_item:"Acrylic"|get_item:"Standard Deviation" }}</td>
+                                    <td>{{ results|get_item:"Bone"|get_item:"Standard Deviation" }}</td>
+                                    <td>{{ results|get_item:"Air"|get_item:"Standard Deviation" }}</td>
+                                    <td>{{ results|get_item:"Water"|get_item:"Standard Deviation" }}</td>
+                                </tr>
+                            </tbody>
+                            {% elif test_name == 'Low Contrast Resolution'%}
+                            <thead>
+                                <tr>
+                                    <th scope="col">Mean Disk (HU)</th>
+                                    <th scope="col">Mean Background (HU)</th>
+                                    <th scope="col">Standard Deviation Background (HU)</th>
+                                    <th scope="col">Contrast to Noise Ratio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ results|get_item:"Mean Disk (HU)" }}</td>
+                                    <td>{{ results|get_item:"Mean Background (HU)" }}</td>
+                                    <td>{{ results|get_item:"Standard Deviation Background (HU)" }}</td>
+                                    <td>{{ results|get_item:"Contrast to Noise Ratio" }}</td>
+                                </tr>
+                            </tbody>
+                            {% elif test_name == 'CT Number Uniformity Assessment'%}
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">3'</th>
+                                    <th scope="col">6'</th>
+                                    <th scope="col">9'</th>
+                                    <th scope="col">12'</th>
+                                    <th scope="col">Center</th>
+                                    <th scope="col">Slice</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mean</td>
+                                    <td>{{ results|get_item:"3'"|get_item:"Mean" }}</td>
+                                    <td>{{ results|get_item:"6'"|get_item:"Mean" }}</td>
+                                    <td>{{ results|get_item:"9'"|get_item:"Mean" }}</td>
+                                    <td>{{ results|get_item:"12'"|get_item:"Mean" }}</td>
+                                    <td>{{ results|get_item:"Center"|get_item:"Mean" }}</td>
+                                    <td>{{ results|get_item:"Mean" }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Standard Deviation</td>
+                                    <td>{{ results|get_item:"3'"|get_item:"Standard Deviation" }}</td>
+                                    <td>{{ results|get_item:"6'"|get_item:"Standard Deviation" }}</td>
+                                    <td>{{ results|get_item:"9'"|get_item:"Standard Deviation" }}</td>
+                                    <td>{{ results|get_item:"12'"|get_item:"Standard Deviation" }}</td>
+                                    <td>{{ results|get_item:"Center"|get_item:"Standard Deviation" }}</td>
+                                    <td>{{ results|get_item:"Standard Deviation" }}</td>
+                                </tr>
+                            </tbody>
+                            {% elif test_name == 'High Contrast Spatial Resolution'%}
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Polyethylene</th>
+                                    <th scope="col">Acrylic</th>
+                                    <th scope="col">Bone</th>
+                                    <th scope="col">Air</th>
+                                    <th scope="col">Water</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mean</td>
+                                    <td>Mean</td>
+                                    <td>Mean</td>
+                                    <td>Mean</td>
+                                    <td>Mean</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Standard Deviation</td>
+                                </tr>
+                            </tbody>
+                            {% endif %}
+                        </table>
                             </div>
                         </div>
+                    <p>{{ results }}</p>
                     </div>
                 </div>
             </div>
