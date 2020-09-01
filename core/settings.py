@@ -126,6 +126,16 @@ USE_TZ = True
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+AWS_STORAGE_BUCKET_NAME = 'projectcharon'
+AWS_S3_REGION_NAME = 'us-east-1'  # e.g. us-east-2
+AWS_ACCESS_KEY_ID = 'AKIAX6CEC3CG25TPGRXM'
+AWS_SECRET_ACCESS_KEY = 'qfRnXB1XgbVAJsixF7NXIqcJIWAnozqq0+SBXNJC'
+
+# Tell django-storages the domain to use to refer to static files.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -147,7 +157,6 @@ STATICFILES_FINDERS = (
 #############################################################
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = 'C:/Users/jolly/Programming/PythonProjects/Z&A/django-dicom-ui/media/'  # os.path.join(BASE_DIR, 'media/')
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
