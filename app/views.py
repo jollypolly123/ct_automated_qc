@@ -5,7 +5,8 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
+from django.core.mail import send_mail
 from django.template import loader
 from django.http import HttpResponse
 from django import template
@@ -14,6 +15,7 @@ from io import BytesIO
 import numpy as np
 from PIL import Image
 from base64 import b64encode
+
 
 from .models import Document
 from .forms import DocumentForm
@@ -141,3 +143,13 @@ def database_page(request):
 def delete_files(request):
     Document.objects.all().delete()
     return redirect('app:dashboard')
+
+
+def send_alert(request):
+    send_mail(
+        'That’s your subject',
+        'That’s your message body',
+        'from@projectcharon.com',
+        ['to@yourbestuser.com'],
+        fail_silently=False,
+    )

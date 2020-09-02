@@ -169,3 +169,13 @@ DATABASES['default'].update(db_from_env)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
+
+#############################################################
+# Email stuff
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.yourserver.com'
+# EMAIL_PORT = '<your-server-port>'
+# EMAIL_HOST_USER = 'your@djangoapp.com'
+# EMAIL_HOST_PASSWORD = 'your-email account-password'
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
