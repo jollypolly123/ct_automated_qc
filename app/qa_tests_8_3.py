@@ -319,22 +319,14 @@ def push_seq_to_database(data_set, db_name):
     print("Finished as {}".format(result.inserted_id))
 
 
-def update_database(info):
-    print("Updating database...")
-    # TODO: change this
-
-
 if __name__ == "__main__":
-    imgs = load_scan("C:\\Users\\jolly\\Programming\\PythonProjects\\Z&A\\set4\\DMI HOLLYWOOD")
-    series_set = separate_series(imgs)
-    test_results = run_tests(series_set)
-    push_seq_to_database(test_results, "Three Modules")
+    # imgs = load_scan("C:\\Users\\jolly\\Programming\\PythonProjects\\Z&A\\set4\\DMI HOLLYWOOD")
+    # series_set = separate_series(imgs)
+    # test_results = run_tests(series_set)
+    # push_seq_to_database(test_results, "Three Modules")
+    print("Main")
 
-# Window/webapp
-# Django; select directory; load dicomdir or folder
 
 # Graphs
-
-# Display img with ROI for modules
 
 # Module 4: Review spatial resolution evaluation in MATLAB for CATPhan (MTF); then display ROI

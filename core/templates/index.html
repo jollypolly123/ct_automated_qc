@@ -1,5 +1,7 @@
 {% extends "layouts/base.html" %}
 
+{% load static %}
+
 {% block title %} Dashboard {% endblock title %}
 
 <!-- Specific CSS goes HERE -->
@@ -105,7 +107,7 @@
 
 {% block javascripts %}
 
-	<script src="/static/assets/js/demo.js' %}"></script>
+	<script src="{% static 'assets/js/demo.js' %}"></script>
     <script type="text/javascript">
         window.onload = function(){
             location.href=document.getElementById("selectbox").value;
