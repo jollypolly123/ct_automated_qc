@@ -1,0 +1,79 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Equipment Performance Evaluation</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="POST" action="/kvp">
+                        {% csrf_token %}
+                    <div class="card-header">
+                        <div class="card-title">kVp Accuracy and HVL Measurement</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <label class="mt-3 mb-3"><b>Measured</b></label>
+                                <div class="form-group">
+                                    <label for="measured_80">80 kVp</label>
+                                    <input type="text" class="form-control" name="measured_80" id="measured_80" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="measured_100">100 kVp</label>
+                                    <input type="text" class="form-control" name="measured_100" id="measured_100" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="measured_120">120 kVp</label>
+                                    <input type="text" class="form-control" name="measured_120" id="measured_120" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="measured_140">140 kVp</label>
+                                    <input type="text" class="form-control" name="measured_140" id="measured_140" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="mt-3 mb-3"><b>HVL (mm)</b></label>
+                                <div class="form-group">
+                                    <label for="hvl_80">80 kVp</label>
+                                    <input type="text" class="form-control" name="hvl_80" id="hvl_80" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hvl_100">100 kVp</label>
+                                    <input type="text" class="form-control" name="hvl_100" id="hvl_100" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hvl_120">120 kVp</label>
+                                    <input type="text" class="form-control" name="hvl_120" id="hvl_120" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hvl_140">140 kVp</label>
+                                    <input type="text" class="form-control" name="hvl_140" id="hvl_140" placeholder="Enter Value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn btn-success">Submit</button>
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

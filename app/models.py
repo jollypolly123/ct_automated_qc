@@ -51,3 +51,8 @@ class Document(models.Model):
         image.save(img_io, format='PNG')
         self.image.save('img.png', ContentFile(img_io.getvalue()), save=False)
         super(Document, self).save(*args, **kwargs)
+
+
+class Report(models.Model):
+    name = models.CharField(max_length=100, default='report')
+    file = models.FileField(upload_to='reports/')

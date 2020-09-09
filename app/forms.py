@@ -18,9 +18,3 @@ class dicom_image_form(forms.Form):
         help_text='Single DICOM Image'
     )
 
-
-class dicom_dir_form(forms.Form):
-    docfile = forms.FileField(
-        label='Select a file',
-        help_text='Multiple DICOM Images'
-    )

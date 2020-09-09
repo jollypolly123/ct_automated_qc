@@ -128,7 +128,7 @@ USE_TZ = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 AWS_STORAGE_BUCKET_NAME = 'projectcharon'
-AWS_S3_REGION_NAME = 'us-east-1'  # e.g. us-east-2
+AWS_S3_REGION_NAME = 'us-east-1'
 AWS_ACCESS_KEY_ID = 'AKIAX6CEC3CG25TPGRXM'
 AWS_SECRET_ACCESS_KEY = 'qfRnXB1XgbVAJsixF7NXIqcJIWAnozqq0+SBXNJC'
 
@@ -143,11 +143,11 @@ AWS_LOCATION = 'static'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'core\\static'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'core\\static'),)
 
 # # Static files (CSS, JavaScript, Images)
 # # https://docs.djangoproject.com/en/1.9/howto/static-files/
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_URL = '/static/'
 #
 # # Extra places for collectstatic to find static files.

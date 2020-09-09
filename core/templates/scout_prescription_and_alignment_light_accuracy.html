@@ -1,0 +1,80 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Equipment Performance Evaluation</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <form method="POST" action="/scout_prescription">
+                        {% csrf_token %}
+                    <div class="card-header">
+                        <div class="card-title">Table Travel and Return to Fixed Position Accuracy</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6">
+                                <label class="mt-3 mb-3"><b>Objective: To verify that the scout image prescription correctly identifies the scan position.</b></label>
+                                <div class="form-group">
+                                    <label for="first_scout">Slice Location of the 1st Module BBs as displayed on the scout image</label>
+                                    <input type="text" class="form-control" name="first_scout" id="first_scout" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="first_axial">Slice Location of the 1st Module BBs as displayed on the axial image</label>
+                                    <input type="text" class="form-control" name="first_axial" id="first_axial" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fourth_scout">Slice Location of the 4th Module BBs as displayed on the scout image</label>
+                                    <input type="text" class="form-control" name="fourth_scout" id="fourth_scout" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fourth_axial">Slice Location of the 4th Module BBs as displayed on the axial image</label>
+                                    <input type="text" class="form-control" name="fourth_axial" id="fourth_axial" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6">
+                                <label class="mt-3 mb-3"><b>Objective: To verify that the incorporated alignment lights correctly indicate the scan position.</b></label>
+                                <div class="form-group">
+                                    <label for="first_laser">Table Location of the laser alignment light of the 1st Module BBs</label>
+                                    <input type="text" class="form-control" name="first_laser" id="first_laser" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="first_slice">Slice Location of the 1st Module BBs as displayed on the axial image</label>
+                                    <input type="text" class="form-control" name="first_slice" id="first_slice" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fourth_laser">Table Location of the laser alignment light of the 4th Module BBs</label>
+                                    <input type="text" class="form-control" name="fourth_laser" id="fourth_laser" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fourth_slice">Slice Location of the 4th Module BBs as displayed on the axial image</label>
+                                    <input type="text" class="form-control" name="fourth_slice" id="fourth_slice" placeholder="Enter Value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn btn-success">Submit</button>
+<!--                        <button class="btn btn-danger">Cancel</button>-->
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

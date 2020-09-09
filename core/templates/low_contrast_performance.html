@@ -1,0 +1,87 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Equipment Performance Evaluation</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="POST" action="/low_contrast">
+                        {% csrf_token %}
+                    <div class="card-header">
+                        <div class="card-title">Low Contrast Performance (ACR CT Phantom Module 2)</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 col-lg-6">
+                                <label class="mt-3 mb-3"><b>Lines detected in Top</b></label>
+                                <div class="form-group">
+                                    <label for="top_one_mm">Slice Thickness: 1.00 mm</label>
+                                    <input type="text" class="form-control" name="top_one_mm" id="top_one_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="top_two_mm">Slice Thickness: 2.00 mm</label>
+                                    <input type="text" class="form-control" name="top_two_mm" id="top_two_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="top_five_mm">Slice Thickness: 5.00 mm</label>
+                                    <input type="text" class="form-control" name="top_five_mm" id="top_five_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="top_seven_mm">Slice Thickness: 7.00 mm</label>
+                                    <input type="text" class="form-control" name="top_seven_mm" id="top_seven_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="top_ten_mm">Slice Thickness: 10.00 mm</label>
+                                    <input type="text" class="form-control" name="top_ten_mm" id="top_ten_mm" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-6">
+                                <label class="mt-3 mb-3"><b>Lines detected in Bottom</b></label>
+                                <div class="form-group">
+                                    <label for="bot_one_mm">Slice Thickness: 1.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_one_mm" id="bot_one_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bot_two_mm">Slice Thickness: 2.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_two_mm" id="bot_two_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bot_five_mm">Slice Thickness: 5.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_five_mm" id="bot_five_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bot_seven_mm">Slice Thickness: 7.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_seven_mm" id="bot_seven_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bot_ten_mm">Slice Thickness: 10.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_ten_mm" id="bot_ten_mm" placeholder="Enter Value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn btn-success">Submit</button>
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

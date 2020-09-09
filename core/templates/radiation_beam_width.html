@@ -1,0 +1,176 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Equipment Performance Evaluation</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="POST" action="/radiation_beam">
+                        {% csrf_token %}
+                    <div class="card-header">
+                        <div class="card-title">Radiation Beam Width</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-2 col-lg-2">
+                                <label class="mt-3 mb-3"><b>First</b></label>
+                                <div class="form-group">
+                                    <label for="n_1">N</label>
+                                    <input type="text" class="form-control" name="n_1" id="n_1" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="t_1">T (mm)</label>
+                                    <input type="text" class="form-control" name="t_1" id="t_1" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="measured_1">Measured (mm)</label>
+                                    <input type="text" class="form-control" name="measured_1" id="measured_1" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom_1">Manufacturer Nominal (mm)</label>
+                                    <input type="text" class="form-control" name="nom_1" id="nom_1" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="min_1">Manufacturer Min (mm)</label>
+                                    <input type="text" class="form-control" name="min_1" id="min_1" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="max_1">Manufacturer Max (mm)</label>
+                                    <input type="text" class="form-control" name="max_1" id="max_1" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-lg-2">
+                                <label class="mt-3 mb-3"><b>Second</b></label>
+                                <div class="form-group">
+                                    <label for="n_2">N</label>
+                                    <input type="text" class="form-control" name="n_2" id="n_2" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="t_2">T (mm)</label>
+                                    <input type="text" class="form-control" name="t_2" id="t_2" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="measured_2">Measured (mm)</label>
+                                    <input type="text" class="form-control" name="measured_2" id="measured_2" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom_2">Manufacturer Nominal (mm)</label>
+                                    <input type="text" class="form-control" name="nom_2" id="nom_2" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="min_2">Manufacturer Min (mm)</label>
+                                    <input type="text" class="form-control" name="min_1" id="min_2" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="max_2">Manufacturer Max (mm)</label>
+                                    <input type="text" class="form-control" name="max_1" id="max_2" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-lg-2">
+                                <label class="mt-3 mb-3"><b>Third</b></label>
+                                <div class="form-group">
+                                    <label for="n_3">N</label>
+                                    <input type="text" class="form-control" name="n_3" id="n_3" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="t_3">T (mm)</label>
+                                    <input type="text" class="form-control" name="t_3" id="t_3" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="measured_3">Measured (mm)</label>
+                                    <input type="text" class="form-control" name="measured_3" id="measured_3" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom_3">Manufacturer Nominal (mm)</label>
+                                    <input type="text" class="form-control" name="nom_3" id="nom_3" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="min_3">Manufacturer Min (mm)</label>
+                                    <input type="text" class="form-control" name="min_3" id="min_3" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="max_3">Manufacturer Max (mm)</label>
+                                    <input type="text" class="form-control" name="max_3" id="max_3" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-lg-2">
+                                <label class="mt-3 mb-3"><b>Fourth</b></label>
+                                <div class="form-group">
+                                    <label for="n_4">N</label>
+                                    <input type="text" class="form-control" name="n_4" id="n_4" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="t_4">T (mm)</label>
+                                    <input type="text" class="form-control" name="t_4" id="t_4" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="measured_4">Measured (mm)</label>
+                                    <input type="text" class="form-control" name="measured_4" id="measured_4" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom_4">Manufacturer Nominal (mm)</label>
+                                    <input type="text" class="form-control" name="nom_4" id="nom_4" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="min_4">Manufacturer Min (mm)</label>
+                                    <input type="text" class="form-control" name="min_4" id="min_4" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="max_4">Manufacturer Max (mm)</label>
+                                    <input type="text" class="form-control" name="max_4" id="max_4" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-lg-2">
+                                <label class="mt-3 mb-3"><b>Fifth</b></label>
+                                <div class="form-group">
+                                    <label for="n_5">N</label>
+                                    <input type="text" class="form-control" name="n_5" id="n_5" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="t_5">T (mm)</label>
+                                    <input type="text" class="form-control" name="t_5" id="t_5" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="measured_5">Measured (mm)</label>
+                                    <input type="text" class="form-control" name="measured_5" id="measured_5" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="nom_5">Manufacturer Nominal (mm)</label>
+                                    <input type="text" class="form-control" name="nom_5" id="nom_5" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="min_5">Manufacturer Min (mm)</label>
+                                    <input type="text" class="form-control" name="min_5" id="min_5" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="max_5">Manufacturer Max (mm)</label>
+                                    <input type="text" class="form-control" name="max_5" id="max_5" placeholder="Enter Value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn btn-success">Submit</button>
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

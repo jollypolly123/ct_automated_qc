@@ -1,0 +1,249 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Equipment Performance Evaluation</h4>
+            <ul class="breadcrumbs">
+                <li class="nav-home">
+                    <a href="/">
+                        <i class="flaticon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="ct_protocol_review.html">CT Protocol Review</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="table_travel_and_return_to_fixed_position_accuracy.html">Table Travel...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="scout_prescription_and_alignment_light_accuracy.html">Scout Prescription...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="slice_thickness_accuracy.html">Slice Thickness...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="ct_number_accuracy.html">CT Number Accuracy</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="low_contrast_performance.html">Low Contrast...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="ct_number_uniformity_and_artifact_evaluation.html">CT Number Uniformity...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="in-plane_distance_accuracy.html">In-Plane...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="high_contrast_resolution.html">High Contrast...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="radiation_beam_width.html">Radiation Beam...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="kvp_accuracy_and_hvl_measurement.html">kVp Accuracy...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="ct_dosimetry.html">CT Dosimetry</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <strong><a href="soft-copy_quality_control.html">Soft-Copy...</a></strong>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="POST" action="/soft_copy">
+                        {% csrf_token %}
+                    <div class="card-header">
+                        <div class="card-title">Soft-Copy (Monitor) Quality Control</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-6">
+                                <label class="mt-3 mb-3"><b>SMPTE Pattern Evaluation</b></label>
+                                <div class="form-group">
+                                    <label for="gray_level">All gray level steps in the ring of gray levels visibly distinct?</label>
+                                    <select class="form-control form-control" name="gray_level" id="gray_level">
+                                        <option>NA</option>
+                                        <option>Pass</option>
+                                        <option>Fail</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="patch">5% patch visible in the 0/5% patch; the 95% patch visible in the 95/100% patch?</label>
+                                    <select class="form-control form-control" name="patch" id="patch">
+                                        <option>NA</option>
+                                        <option>Pass</option>
+                                        <option>Fail</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="line_pair">Finest line pair pattern visualized center at each of the 4 corners?</label>
+                                    <select class="form-control form-control" name="line_pair" id="line_pair">
+                                        <option>NA</option>
+                                        <option>Pass</option>
+                                        <option>Fail</option>
+                                    </select>
+                                </div>
+
+                                <label class="mt-3 mb-3"><b>Luminance (cd/cm2)</b></label>
+                                <div class="form-group form-inline">
+                                    <label for="upper_left" class="col-md-3 col-form-label">Upper Left</label>
+                                    <div class="col-md-9 p-0">
+                                        <input type="text" class="form-control input-full" name="upper_left" id="upper_left" placeholder="Enter value">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="upper_right" class="col-md-3 col-form-label">Upper Right</label>
+                                    <div class="col-md-9 p-0">
+                                        <input type="text" class="form-control input-full" name="upper_right" id="upper_right" placeholder="Enter value">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="bottom_right" class="col-md-3 col-form-label">Bottom Right</label>
+                                    <div class="col-md-9 p-0">
+                                        <input type="text" class="form-control input-full" name="bottom_right" id="bottom_right" placeholder="Enter value">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="bottom_left" class="col-md-3 col-form-label">Bottom Left</label>
+                                    <div class="col-md-9 p-0">
+                                        <input type="text" class="form-control input-full" name="bottom_left" id="bottom_left" placeholder="Enter value">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6">
+                                <label class="mt-3 mb-3"><b>Contrast Levels</b></label>
+                                <div class="form-group form-inline">
+                                    <label for="cl_0" class="col-md-3 col-form-label">Contrast Level: 0%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_0" id="cl_0" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_10" class="col-md-3 col-form-label">Contrast Level: 10%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_10" id="cl_10" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_20" class="col-md-3 col-form-label">Contrast Level: 20%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_20" id="cl_20" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_30" class="col-md-3 col-form-label">Contrast Level: 30%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_30" id="cl_30" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_40" class="col-md-3 col-form-label">Contrast Level: 40%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_40" id="cl_40" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_50" class="col-md-3 col-form-label">Contrast Level: 50%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_50" id="cl_50" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_60" class="col-md-3 col-form-label">Contrast Level: 60%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_60" id="cl_60" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_70" class="col-md-3 col-form-label">Contrast Level: 70%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_70" id="cl_70" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_80" class="col-md-3 col-form-label">Contrast Level: 80%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_80" id="cl_80" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_90" class="col-md-3 col-form-label">Contrast Level: 90%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_90" id="cl_90" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                                <div class="form-group form-inline">
+                                    <label for="cl_100" class="col-md-3 col-form-label">Contrast Level: 100%</label>
+                                    <div class="col-md-9 p-120">
+                                        <input type="text" class="form-control input-full" name="cl_100" id="cl_100" placeholder="Luminance (cd/cm2)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn btn-success">Finish Report</button>
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
+

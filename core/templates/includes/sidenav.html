@@ -37,11 +37,21 @@
 										<p>Dashboard</p>
 									</a>
 							</li>
-							<li class="nav-section">
-								<span class="sidebar-mini-icon">
-									<i class="fa fa-ellipsis-h"></i>
-								</span>
-							</li>
+<!--							{% if not report %}-->
+<!--							<li class="nav-item">-->
+<!--								<a href="/start_template">-->
+<!--									<i class="fas fa-plus-square"></i>-->
+<!--									<span class="sub-item">Start New Report</span>-->
+<!--								</a>-->
+<!--							</li>-->
+<!--							{% else %}-->
+<!--							<li class="nav-item">-->
+<!--								<a href="/view_template">-->
+<!--									<i class="fas fa-file-excel"></i>-->
+<!--									<span class="sub-item">View Report</span>-->
+<!--								</a>-->
+<!--							</li>-->
+<!--							{% endif %}-->
 							<li class="nav-item">
 								<a data-toggle="collapse" href="#steps">
 									<i class="fas fa-pen-square"></i>
@@ -51,23 +61,68 @@
 								<div class="collapse" id="steps">
 									<ul class="nav nav-collapse">
 										<li class="nav-item">
-											<a href="/upload">
-												<span class="sub-item">1. Phantom Data Form</span>
+											<a href="ct_protocol_review.html">
+												CT Protocol Review
 											</a>
 										</li>
 										<li class="nav-item">
-											<a href="/upload">
-												<span class="sub-item">2. Calibrate Scanner</span>
+											<a href="table_travel_and_return_to_fixed_position_accuracy.html">
+													Table Travel and Return to Fixed Position Accuracy
 											</a>
 										</li>
 										<li class="nav-item">
-											<a href="/upload">
-												<span class="sub-item">3. Phantom and Scanner Alignment</span>
+											<a href="scout_prescription_and_alignment_light_accuracy.html">
+													Scout Prescription and Alignment Light Accuracy
 											</a>
 										</li>
 										<li class="nav-item">
-											<a href="/upload">
-												<span class="sub-item">4. Scan Phantom</span>
+											<a href="slice_thickness_accuracy.html">
+													Slice Thickness Accuracy
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="ct_number_accuracy.html">
+													CT Number Accuracy
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="low_contrast_performance.html">
+													Low Contrast Performance
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="ct_number_uniformity_and_artifact_evaluation.html">
+													CT Number Uniformity and Artifact Evaluation
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="in-plane_distance_accuracy.html">
+													In-Plane Distance Accuracy
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="high_contrast_resolution.html">
+													High Contrast Resolution
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="radiation_beam_width.html">
+													Radiation Beam Width
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="kvp_accuracy_and_hvl_measurement.html">
+													kVp Accuracy and HVL Measurement
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="ct_dosimetry.html">
+													CT Dosimetry
+											</a>
+										</li>
+										<li class="nav-item">
+											<a href="soft-copy_quality_control.html">
+													Soft-Copy (Monitor) Quality Control
 											</a>
 										</li>
 									</ul>

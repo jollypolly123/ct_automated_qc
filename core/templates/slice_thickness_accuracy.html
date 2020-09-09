@@ -1,0 +1,172 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Equipment Performance Evaluation</h4>
+            <ul class="breadcrumbs">
+                <li class="nav-home">
+                    <a href="/">
+                        <i class="flaticon-home"></i>
+                    </a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="ct_protocol_review.html">CT Protocol...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="table_travel_and_return_to_fixed_position_accuracy.html">Table Travel...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="scout_prescription_and_alignment_light_accuracy.html">Scout Prescription...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <strong><a href="slice_thickness_accuracy.html">Slice Thickness...</a></strong>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="ct_number_accuracy.html">CT Number Accuracy</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="low_contrast_performance.html">Low Contrast...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="ct_number_uniformity_and_artifact_evaluation.html">CT Number Uniformity...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="in-plane_distance_accuracy.html">In-Plane...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="high_contrast_resolution.html">High Contrast...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="radiation_beam_width.html">Radiation Beam...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="kvp_accuracy_and_hvl_measurement.html">kVp Accuracy...</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="ct_dosimetry.html">CT Dosimetry</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="soft-copy_quality_control.html">Soft-Copy...</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="POST" action="/slice_thickness">
+                        {% csrf_token %}
+                    <div class="card-header">
+                        <div class="card-title">Slice thickness acccuracy (ACR CT Phantom Module 1)</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <label class="mt-3 mb-3"><b>Lines detected in Top</b></label>
+                                <div class="form-group">
+                                    <label for="top_one_mm">Slice Thickness: 1.00 mm</label>
+                                    <input type="text" class="form-control" name="top_one_mm" id="top_one_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="top_two_mm">Slice Thickness: 2.00 mm</label>
+                                    <input type="text" class="form-control" name="top_two_mm" id="top_two_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="top_five_mm">Slice Thickness: 5.00 mm</label>
+                                    <input type="text" class="form-control" name="top_five_mm" id="top_five_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="top_seven_mm">Slice Thickness: 7.00 mm</label>
+                                    <input type="text" class="form-control" name="top_seven_mm" id="top_seven_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="top_ten_mm">Slice Thickness: 10.00 mm</label>
+                                    <input type="text" class="form-control" name="top_ten_mm" id="top_ten_mm" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="mt-3 mb-3"><b>Lines detected in Bottom</b></label>
+                                <div class="form-group">
+                                    <label for="bot_one_mm">Slice Thickness: 1.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_one_mm" id="bot_one_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bot_two_mm">Slice Thickness: 2.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_two_mm" id="bot_two_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bot_five_mm">Slice Thickness: 5.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_five_mm" id="bot_five_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bot_seven_mm">Slice Thickness: 7.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_seven_mm" id="bot_seven_mm" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bot_ten_mm">Slice Thickness: 10.00 mm</label>
+                                    <input type="text" class="form-control" name="bot_ten_mm" id="bot_ten_mm" placeholder="Enter Value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn btn-success">Submit</button>
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

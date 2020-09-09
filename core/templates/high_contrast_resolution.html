@@ -1,0 +1,110 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Equipment Performance Evaluation</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="POST" action="/high_contrast">
+                        {% csrf_token %}
+                    <div class="card-header">
+                        <div class="card-title">High Contrast Resolution</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <label class="mt-3 mb-3"><b>Visible lp/cm</b></label>
+                                <div class="form-group">
+                                    <label for="ah_visible">Adult Head</label>
+                                    <input type="text" class="form-control" name="ah_visible" id="ah_visible" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="aa_visible">Adult Abdomen</label>
+                                    <input type="text" class="form-control" name="aa_visible" id="aa_visible" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ph_visible">Pediatric Head</label>
+                                    <input type="text" class="form-control" name="ph_visible" id="ph_visible" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pa_visible">Pediatric Abdomen</label>
+                                    <input type="text" class="form-control" name="pa_visible" id="pa_visible" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hrc_visible">High Resolution Chest</label>
+                                    <input type="text" class="form-control" name="hrc_visible" id="hrc_visible" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="mt-3 mb-3"><b>50% MTF lp/cm</b></label>
+                                <div class="form-group">
+                                    <label for="ah_50">Adult Head</label>
+                                    <input type="text" class="form-control" name="ah_50" id="ah_50" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="aa_50">Adult Abdomen</label>
+                                    <input type="text" class="form-control" name="aa_50" id="aa_50" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ph_50">Pediatric Head</label>
+                                    <input type="text" class="form-control" name="ph_50" id="ph_50" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pa_50">Pediatric Abdomen</label>
+                                    <input type="text" class="form-control" name="pa_50" id="pa_50" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hrc_50">High Resolution Chest</label>
+                                    <input type="text" class="form-control" name="hrc_50" id="hrc_50" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <label class="mt-3 mb-3"><b>10% MTF lp/cm</b></label>
+                                <div class="form-group">
+                                    <label for="ah_10">Adult Head</label>
+                                    <input type="text" class="form-control" name="ah_10" id="ah_10" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="aa_10">Adult Abdomen</label>
+                                    <input type="text" class="form-control" name="aa_10" id="aa_10" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ph_10">Pediatric Head</label>
+                                    <input type="text" class="form-control" name="ph_10" id="ph_10" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pa_10">Pediatric Abdomen</label>
+                                    <input type="text" class="form-control" name="pa_10" id="pa_10" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="hrc_10">High Resolution Chest</label>
+                                    <input type="text" class="form-control" name="hrc_10" id="hrc_10" placeholder="Enter Value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn btn-success">Submit</button>
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}
