@@ -1,6 +1,6 @@
 import openpyxl
 import copy
-import win32com.client
+import comtypes.client
 import pythoncom
 
 
@@ -20,33 +20,18 @@ def input_data(workbook, information):
     return workbook
 
 
-def publish_workbook(path, path_publish):
-    pythoncom.CoInitialize()
-
-    o = win32com.client.Dispatch("Excel.Application")
-
-    o.Visible = False
-
-    wb_path = path
-
-    wb = o.Workbooks.Open(wb_path)
-
+def publish_workbook(path, path_publish, wd_format_pdf=17):
+    xlsx = comtypes.client.CreateObject("Excel.Application")
+    print("Created Obj")
+    wb = xlsx.Workbooks.Open(path)
+    print("Opened")
     ws_index_list = [1, 2]  # say you want to print these sheets
-
-    path_to_pdf = path_publish
-
     wb.WorkSheets(ws_index_list).Select()
-
-    wb.ActiveSheet.ExportAsFixedFormat(0, path_to_pdf)
+    wb.ActiveSheet.ExportAsFixedFormat(0, path_publish)
+    wb.Close()
+    xlsx.Quit()
 
 
 if __name__ == "__main__":
-    # wb = get_template()
-    # wb = input_data(wb, {'adult_abd_polyethylene': 130,
-    #                      'adult_abd_water': 130,
-    #                      'adult_abd_acrylic': 130,
-    #                      'adult_abd_bone': 130,
-    #                      'adult_abd_air': 130})
-    # wb.save("copy.xlsx")
-    path = 'C:\\Users\\jolly\\Programming\\PythonProjects\\Z&A\\proj_charon\\app\\'
-    publish_workbook(path)
+    path_excel = 'C:\\Users\\jolly\\Programming\\PythonProjects\\Z&A\\proj_charon\\app\\CT-Template.xlsx'
+    publish_workbook(path_excel, 'C:\\Users\\jolly\\Programming\\PythonProjects\\Z&A\\proj_charon\\app\\new.pdf')

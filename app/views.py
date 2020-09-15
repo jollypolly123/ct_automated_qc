@@ -495,7 +495,6 @@ def input_data(request):
     data_sheet['J264'] = ''
     data_sheet['J265'] = ''
     data_sheet['J266'] = ''
-    # summary_sheet = workbook["Summary"]
     wb = workbook.save("CT-Report.xlsx")
     wb.close()
     handle_excel.publish_workbook('C:\\Users\\jolly\\Programming\\PythonProjects\\Z&A\\proj_charon\\CT-Report.xlsx',
