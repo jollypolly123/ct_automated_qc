@@ -507,8 +507,7 @@ def input_data(request):
     data_sheet['J264'] = ''
     data_sheet['J265'] = ''
     data_sheet['J266'] = ''
-    wb = workbook.save("CT-Report.xlsx")
-    wb.close()
+    handle_excel.upload_to_s3(workbook)
     handle_excel.publish_cc_wb(cc_api_key)
     return workbook
 

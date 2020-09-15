@@ -2,6 +2,7 @@ import openpyxl
 import cloudconvert
 import boto3
 import io
+from openpyxl.writer.excel import save_virtual_workbook
 
 
 def get_template():
@@ -13,13 +14,21 @@ def get_template():
     return wb
 
 
+def upload_to_s3(file_obj):
+    s3 = boto3.client('s3', aws_access_key_id="AKIAX6CEC3CGR3ZJ6DHQ",
+                      aws_secret_access_key="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")
+    virtual_workbook = io.BytesIO()
+    file_obj.save(virtual_workbook)
+    s3.put_object(Body=virtual_workbook, Bucket='projectcharon', Key='CT-Report.xlsx')
+
+
 def publish_cc_wb(key):
     cloudconvert.configure(api_key=key, sandbox=False)
     cloudconvert.Job.create(payload={
         "tasks": {
             'import-my-file': {
                 'operation': 'import/url',
-                'url': 'https://projectcharon.s3.amazonaws.com/static/CT-Report.xlsx',
+                'url': 'https://projectcharon.s3.amazonaws.com/CT-Report.xlsx',
             },
             'convert-my-file': {
                 'operation': 'convert',
@@ -43,18 +52,21 @@ def publish_cc_wb(key):
 
 
 if __name__ == "__main__":
-    # cc_api_key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGU3NGEyYzU5OTkxZmRmOWE0OTY2NjNhOGVhZ" \
-    #              "jFiOGE1YzBlMWQzOGUzMzhhYzBjYTJmZmFkMTdhNjJhNjg0ZThiOWM0MzY2ZWQ5YmU0YzciLCJpYXQiOjE2MDAxNDc0ODMsIm5" \
-    #              "iZiI6MTYwMDE0NzQ4MywiZXhwIjo0NzU1ODIxMDgzLCJzdWIiOiI0NDk5ODk2MCIsInNjb3BlcyI6WyJ1c2VyLnJlYWQiLCJ1c" \
-    #              "2VyLndyaXRlIiwidGFzay5yZWFkIiwid2ViaG9vay5yZWFkIiwidGFzay53cml0ZSIsIndlYmhvb2sud3JpdGUiLCJwcmVzZXQ" \
-    #              "ucmVhZCIsInByZXNldC53cml0ZSJdfQ.qOuoZmrynlRPhf60cbJbPccDTlOfc2OQMh6FyslSdWfkov9Ppp7HvSX_mTaiB8k9qF" \
-    #              "0SKsfOxNBQ5_eh4oaLLYlgo71w4nNj_mGv0C3ymIVRMq6oTcoKPYEVYmBk4Pxitpwm7DgPsLRP6hOhtZJlIjb1S12hLE1N8vnn" \
-    #              "oRkY2WsZE9bd6l2qVjnhHWk2se54SkbD-J7E_3OGx543Tfrgq8UxQerR1BOAkSu9C6zXGxrjv1mCYEy70k9BgSeS-QkEuUvt3I" \
-    #              "uEGdBYYEdbXf826WQSrKO7T3QK_1YN93Bkqa0nPmug6qdbSBalYhOc5l-HfDdU9M1-kojE6RNy4C5M8Vid6LY9Zf7wImxeCG1P" \
-    #              "uL-Adtww112uTlvl8Vi7cNMrCZ1sWg-Q0i3iabjJqxvRfhjDhJj2beI3cictvFryLLhWm6VQoVFHDFuLhUHSOppoLOFxMR6Mew" \
-    #              "9vN3YDjpkCzBBThzHdKTL6qImPozcAgwzxbSvpIIyJKY_p6UPQYPkaVxo5Hcgx805OODv-NiJ2q4ublO-RDcKH1p2Znvil1hbw" \
-    #              "NOQ15nKH5jFDf2HqT-54psaxaz3oTzHtu8LL79wKc99PAl78Gi-FjQWb5AXrHurhGroJTaZFQygl7Gb7KTnLJ9Wl8NEzo_QyDJ" \
-    #              "-EsNq_rOZwLrf3Pb6Ffi4BeseKEFM"
-    # publish_cc_wb(cc_api_key)
-    work = get_template()
-    print(work['Summary']['A1'])
+    cc_api_key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNGU3NGEyYzU5OTkxZmRmOWE0OTY2NjNhOGVhZ" \
+                 "jFiOGE1YzBlMWQzOGUzMzhhYzBjYTJmZmFkMTdhNjJhNjg0ZThiOWM0MzY2ZWQ5YmU0YzciLCJpYXQiOjE2MDAxNDc0ODMsIm5" \
+                 "iZiI6MTYwMDE0NzQ4MywiZXhwIjo0NzU1ODIxMDgzLCJzdWIiOiI0NDk5ODk2MCIsInNjb3BlcyI6WyJ1c2VyLnJlYWQiLCJ1c" \
+                 "2VyLndyaXRlIiwidGFzay5yZWFkIiwid2ViaG9vay5yZWFkIiwidGFzay53cml0ZSIsIndlYmhvb2sud3JpdGUiLCJwcmVzZXQ" \
+                 "ucmVhZCIsInByZXNldC53cml0ZSJdfQ.qOuoZmrynlRPhf60cbJbPccDTlOfc2OQMh6FyslSdWfkov9Ppp7HvSX_mTaiB8k9qF" \
+                 "0SKsfOxNBQ5_eh4oaLLYlgo71w4nNj_mGv0C3ymIVRMq6oTcoKPYEVYmBk4Pxitpwm7DgPsLRP6hOhtZJlIjb1S12hLE1N8vnn" \
+                 "oRkY2WsZE9bd6l2qVjnhHWk2se54SkbD-J7E_3OGx543Tfrgq8UxQerR1BOAkSu9C6zXGxrjv1mCYEy70k9BgSeS-QkEuUvt3I" \
+                 "uEGdBYYEdbXf826WQSrKO7T3QK_1YN93Bkqa0nPmug6qdbSBalYhOc5l-HfDdU9M1-kojE6RNy4C5M8Vid6LY9Zf7wImxeCG1P" \
+                 "uL-Adtww112uTlvl8Vi7cNMrCZ1sWg-Q0i3iabjJqxvRfhjDhJj2beI3cictvFryLLhWm6VQoVFHDFuLhUHSOppoLOFxMR6Mew" \
+                 "9vN3YDjpkCzBBThzHdKTL6qImPozcAgwzxbSvpIIyJKY_p6UPQYPkaVxo5Hcgx805OODv-NiJ2q4ublO-RDcKH1p2Znvil1hbw" \
+                 "NOQ15nKH5jFDf2HqT-54psaxaz3oTzHtu8LL79wKc99PAl78Gi-FjQWb5AXrHurhGroJTaZFQygl7Gb7KTnLJ9Wl8NEzo_QyDJ" \
+                 "-EsNq_rOZwLrf3Pb6Ffi4BeseKEFM"
+    workbook = get_template()
+    data_sheet = workbook["Data"]
+    data_sheet['I61'] = 'Bingbong'
+    data_sheet['I62'] = 'Bingbing'
+    upload_to_s3(workbook)
+    publish_cc_wb(cc_api_key)
