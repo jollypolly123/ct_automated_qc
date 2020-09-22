@@ -319,14 +319,31 @@ def push_seq_to_database(data_set, db_name):
     print("Finished as {}".format(result.inserted_id))
 
 
+def water_ct(dicom_img, color=(255, 255, 0), thickness=2):
+    img = get_pixels_hu([dicom_img])
+    mask = cv2.inRange(img, -100, 1000).astype(bool).astype(int)
+    img *= mask
+    true_points = np.argwhere(img)
+    top_left = true_points.min(axis=0, initial=None)
+    bottom_right = true_points.max(axis=0, initial=None)
+    module = img[top_left[0]:bottom_right[0] + 1,
+                 top_left[1]:bottom_right[1] + 1]
+    shape = module.shape
+    coord = shape[0] // 2, shape[1] // 2
+    circ_area = 1000
+    pixel_space = float(dicom_img.PixelSpacing[0])
+    radius = int(math.sqrt(circ_area / np.pi) / pixel_space)
+    circ = define_circle(module, coord, pixel_space, circ_area=circ_area)
+    results = calculate_roi(circ)
+    module = cv2.circle(module, coord, radius, color, thickness)
+    return results, module
+
+
 if __name__ == "__main__":
-    # imgs = load_scan("C:\\Users\\jolly\\Programming\\PythonProjects\\Z&A\\set4\\DMI HOLLYWOOD")
-    # series_set = separate_series(imgs)
+    imgs = load_scan("C:\\Users\\jolly\\Programming\\PythonProjects\\Z&A\\set4\\DMI HOLLYWOOD")
+    series_set = separate_series(imgs)
+    name = random.choice(list(series_set))
     # test_results = run_tests(series_set)
     # push_seq_to_database(test_results, "Three Modules")
     print("Main")
-
-
-# Graphs
-
-# Module 4: Review spatial resolution evaluation in MATLAB for CATPhan (MTF); then display ROI
+    yeeyee, image = water_ct(series_set[name][0])

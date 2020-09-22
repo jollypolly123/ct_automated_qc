@@ -23,7 +23,6 @@ from . import qa_tests_8_3
 from . import handle_excel
 
 
-
 def administrator(user):
     return user.groups.filter(name='administrator').exists()
 
@@ -33,7 +32,7 @@ def medical_physicist(user):
 
 
 def radiology_technician(user):
-    return user.groups.filter(name='medical_physicist').exists()
+    return user.groups.filter(name='radiology_technician').exists()
 
 
 @login_required(login_url="/login/")
@@ -411,7 +410,6 @@ def database_page(request):
 
 
 @login_required(login_url="/login/")
-@user_passes_test(medical_physicist, login_url='permission_not_granted')
 def delete_files(request):
     Document.objects.all().delete()
     Report.objects.all().delete()
@@ -807,3 +805,72 @@ def send_alert(request):
         ['to@yourbestuser.com'],
         fail_silently=False,
     )
+
+
+@login_required(login_url="/login/")
+@user_passes_test(radiology_technician, login_url='permission_not_granted')
+def water_ct(request):
+    if request.POST.get('action', 'None') == 'upload_images':
+        form = DocumentForm(request.POST, request.FILES)
+        files = request.FILES.getlist('docfile')
+        if form.is_valid():
+            for f in files:
+                file_instance = Document(docfile=f)
+                file_instance.save()
+        for row in Document.objects.all().reverse():
+            if Document.objects.filter(name=row.name).count() > 1:
+                row.delete()
+        images = Document.objects.all()
+        return render(request, 'water_ct.html', {
+            'images': images
+        })
+    elif request.POST.get('action', 'None')[:7] == 'analyze':
+        item = Document.objects.get(slug=request.POST.get('action', False)[7:]).docfile
+        doc = dcmread(item.open(), force=True)
+
+        try:
+            res, image = qa_tests_8_3.water_ct(doc)
+        except:
+            return render(request, 'error.html')
+
+        image -= np.min(image)
+        image = np.divide(image, np.max(image))
+        image = np.multiply(image, 255).astype('uint8')
+
+        image = Image.fromarray(image, 'L')
+
+        byte_io = BytesIO()
+        image.save(byte_io, 'PNG')
+
+        encoded = b64encode(byte_io.getvalue()).decode('ascii')
+        request.session['water_ct'] = res
+        return render(request, 'water_ct.html',
+                      {'results': request.session['water_ct'],
+                       'image': encoded})
+    else:
+        images = Document.objects.all()
+        if images:
+            return render(request, 'water_ct.html', {
+                'images': images
+            })
+        form = DocumentForm()
+        return render(request, 'water_ct.html', {
+            'form': form
+        })
+
+
+@login_required(login_url="/login/")
+@user_passes_test(radiology_technician, login_url='permission_not_granted')
+def display_water_header(request, slug):
+    item = Document.objects.get(slug=slug).docfile
+    doc = dcmread(item.open(), force=True)
+    doc_keys = doc.dir()
+    elements = {key: getattr(doc, key) for key in doc_keys}
+    elements = {key: val for key, val in elements.items() if type(val) is not bytes and type(val) is not dict}
+
+    images = Document.objects.all()
+
+    return render(request, 'water_ct.html',
+                  {'images': images,
+                   'slug': slug,
+                   'header': elements})

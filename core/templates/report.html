@@ -50,4 +50,30 @@
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script type="text/javascript">
+    var AWS = require('aws-sdk');
+    var Excel = require('exceljs');
+    AWS.config.update(
+      {
+        accessKeyId: ".. your key ..",
+        secretAccessKey: ".. your secret key ..",
+      }
+    );
+    var s3 = new AWS.S3();
+    s3.getObject(
+      { Bucket: "projectcharon", Key: "static/CT-Report.xlsx" },
+      function (error, data) {
+        if (error != null) {
+          alert("Failed to retrieve an object: " + error);
+        } else {
+          alert("Loaded " + data.ContentLength + " bytes");
+          // do something with data.Body
+        }
+      }
+    );
+</script>
+<script type="text/javascript">
+</script>
+{% endblock javascripts %}
+

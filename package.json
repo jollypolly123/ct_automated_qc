@@ -1,7 +1,7 @@
 {
   "name": "project-charon",
   "version": "1.0.1",
-  "description": "A simple UI-Ready Django boilerplate.",
+  "description": "Django boilerplate.",
   "scripts": {
     "lint": "eslint ."
   },
@@ -9,6 +9,7 @@
     "node": "8.11.3"
   },
   "devDependencies": {
+    "aws-sdk": "^2.757.0",
     "eslint": "5.0.0",
     "eslint-config-google": "0.9.1"
   },
@@ -17,4 +18,10 @@
     "admin-panel",
     "open-source"
   ],
+  "dependencies": {
+    "exceljs": "^4.1.1",
+    "getstream": "^6.1.3",
+    "stream": "0.0.2",
+    "xlsx": "^0.16.7"
+  }
 }

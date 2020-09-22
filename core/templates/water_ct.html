@@ -1,0 +1,144 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Equipment Performance Evaluation</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Water QC and SD</div>
+                    </div>
+                    {% if form %}
+                    <div class="card-body">
+                      <div class="card-title">Upload an image or folder to get started</div>
+                      <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
+                        <form method = "post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" name="action" value="upload_images" class="btn btn-white btn-border btn-round mr-2">Upload</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="card-body">
+                        <div class="page-inner mt--5">
+                          {% if not image %}
+                          <div class="card full-height">
+                            <div class="card-body">
+                              <div class="d-flex flex-wrap justify-content-around pb-2 pt-4" style="height: 240px; overflow-y: scroll;">
+                                <table class="table" cellspacing="0">
+                                    <h3>DICOM Header</h3>
+                                    <thead>
+                                      <tr>
+                                          <th>Key</th>
+                                          <th>Value</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="file_data">
+                                        {% for tag, value in header.items %}
+                                        <tr>
+                                            <td>{{ tag }}</td>
+                                            <td>{{ value }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          {% endif %}
+                        </div>
+                        <form method="post">
+                            {% if request.path|length <= 20 and not image %}
+                            <h3 class="pl-3">Choose an image to analyze:</h3>
+                            {% endif %}
+                            {% if not results %}
+                            <div class="d-flex flex-wrap justify-content-around pb-2 pt-4" style="height: 350px; overflow-y: scroll;">
+                            {% for image in images %}
+                                <div style="display: inline-block; width: 20%; float: left;">
+                                <div class="form-group">
+                                    <div class="selectgroup w-100">
+                                        <label class="selectgroup-item">
+                                            <input type="radio"
+                                                   name="value"
+                                                   value="{{ image.slug }}"
+                                                   class="selectgroup-input"
+                                                   onchange="javascript:location.href = '/water_ct/' + this.value"
+                                                    {% if request.path|slice:"10:" == image.slug %}
+                                                      checked="checked"
+                                                    {% endif %}
+                                            >
+                                            <img src="{{ image.image.url }}" class="selectgroup-button"
+                                                 style="width: 100%" />
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-wrap justify-content-around">
+                                    <p>{{ image.name }}</p>
+                                </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                            {% endif %}
+                        </form>
+                    </div>
+                    {% if request.path|length > 20 %}
+                    <form method="POST" action="/water_ct">
+                        {% csrf_token %}
+                    <div class="card-action">
+                        {% with request.path|slice:"10:" as path %}
+                        {% with "analyze"|add:path as path %}
+                        <button type="submit" name="action" value="{{path}}" class="btn">Choose This Image</button>
+                        {% endwith %}
+                        {% endwith %}
+                    </div>
+                    </form>
+                    {% elif results %}
+                    <form method="POST" action="/water_ct">
+                        {% csrf_token %}
+                        <div class="row">
+                        <div class="col-md-6 col-lg-4" align="center">
+                            <img src="data:image/png;base64,{{image}}" width="80%">
+                        </div>
+                            <div class="col-md-6 col-lg-4">
+                                <table class="table mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Mean</th>
+                                            <th scope="col">Standard Deviation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ results|get_item:"Mean" }}</td>
+                                            <td>{{ results|get_item:"Standard Deviation" }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-action">
+
+                        </div>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

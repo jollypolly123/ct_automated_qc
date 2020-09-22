@@ -39,5 +39,7 @@ urlpatterns = [
     path('kvp', views.kvp, name='kvp'),
     path('ct_dosimetry', views.ct_dosimetry, name='ct_dosimetry'),
     path('soft_copy', views.soft_copy, name='soft_copy'),
+    path('water_ct', views.water_ct, name='water_ct'),
+    path('water_ct/<slug:slug>', views.display_water_header, name='display_water_header'),
     path('deleted', views.delete_files, name='delete_files'),
 ]

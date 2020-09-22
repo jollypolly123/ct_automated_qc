@@ -63,4 +63,6 @@ def register_user(request):
 
 
 def permission_not_granted(request):
+    if request.method == "POST":
+        return redirect('app:dashboard')
     return render(request, "accounts/permission_not_granted.html")
