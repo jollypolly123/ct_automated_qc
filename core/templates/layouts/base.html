@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load custom_tags %}
 <head>
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	
 	<title>
-		Dashboard App - {% block title %}{% endblock %}
+		Project Charon - {% block title %}{% endblock %}
 	</title>
 
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
@@ -52,9 +53,6 @@
 			{% include 'includes/footer.html' %}
 
 		</div>
-		
-		{% include 'includes/aside-settings.html' %}
-
 	</div>
 
 	{% include 'includes/scripts.html' %}

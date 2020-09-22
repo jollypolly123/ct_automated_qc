@@ -18,6 +18,7 @@ from django.conf import settings
 import numpy as np
 import random
 import os
+import re
 
 
 # -*- coding: utf-8 -*-
@@ -49,7 +50,8 @@ class Document(models.Model):
         image = Image.fromarray(image, 'L')
         img_io = BytesIO()
         image.save(img_io, format='PNG')
-        self.image.save('img.png', ContentFile(img_io.getvalue()), save=False)
+        img_name = re.sub(r'[^\w\s]', '', self.name)
+        self.image.save(img_name, ContentFile(img_io.getvalue()), save=False)
         super(Document, self).save(*args, **kwargs)
 
 

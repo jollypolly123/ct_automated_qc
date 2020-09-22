@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">Permission not granted</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">You do not have access to this page. If there is an error, please contact the administrator.</div>
+                    </div>
+                    <div class="card-action">
+                    <form method = "post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit" name="action" value="submit" class="btn">Home</button>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,53 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">Report</h4>
+            <ul class="breadcrumbs">
+                <li class="nav-home">
+                    <a href="#">[name]</a>
+                </li>
+                <li class="separator">
+                    <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Report</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Report</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+
+                        </div>
+                    </div>
+                    <div class="card-action">
+                    <form method = "post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <button type="submit" name="action" value="submit" class="btn">Download</button>
+<!--                        <button class="btn">Send over Email</button>-->
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

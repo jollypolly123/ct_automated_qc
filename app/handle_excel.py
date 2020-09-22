@@ -1,8 +1,8 @@
+import base64
 import openpyxl
 import cloudconvert
 import boto3
 import io
-from openpyxl.writer.excel import save_virtual_workbook
 
 
 def get_template():
@@ -23,6 +23,7 @@ def upload_to_s3(file_obj):
 
 
 def publish_cc_wb(key):
+    print("Publishing CT Report to PDF...")
     cloudconvert.configure(api_key=key, sandbox=False)
     cloudconvert.Job.create(payload={
         "tasks": {
@@ -68,5 +69,6 @@ if __name__ == "__main__":
     data_sheet = workbook["Data"]
     data_sheet['I61'] = 'Bingbong'
     data_sheet['I62'] = 'Bingbing'
+    print(data_sheet['I62'])
     upload_to_s3(workbook)
     publish_cc_wb(cc_api_key)

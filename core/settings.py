@@ -10,7 +10,6 @@ from unipath import Path
 import psycopg2
 import django_heroku
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = Path(__file__).parent
@@ -34,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
+    'salesforce',  ############################################# https://github.com/django-salesforce/django-salesforce
     'app',  # Enable the inner app
 ]
 
@@ -50,7 +50,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
-LOGIN_REDIRECT_URL = "home"   # Route defined in app/urls.py
+LOGIN_REDIRECT_URL = "home"  # Route defined in app/urls.py
 LOGOUT_REDIRECT_URL = "home"  # Route defined in app/urls.py
 TEMPLATE_DIR = os.path.join(BASE_DIR, "core/templates")  # ROOT dir for templates
 
@@ -67,9 +67,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
             ],
-            'libraries':{
-                'custom_tags': 'core.custom_func',
-
+            'libraries': {
+                'custom_tags': 'app.templatetags.custom_func',
             }
         },
     },
@@ -88,8 +87,20 @@ DATABASES = {
         'PASSWORD': '77bf5f91afb1a95b80338a276f25ebfda15736c483ee758f3145c64686c52935',
         'PORT': '5432',
         'HOST': 'ec2-35-175-155-248.compute-1.amazonaws.com',
-    }
+    },
+    # 'salesforce': {
+    #     'ENGINE': 'salesforce.backend',
+    #     'CONSUMER_KEY': '',                # 'client_id'   in OAuth2 terminology
+    #     'CONSUMER_SECRET': '',             # 'client_secret'
+    #     'USER': '',
+    #     'PASSWORD': '',
+    #     'HOST': 'https://test.salesforce.com',
+    # }
 }
+
+# DATABASE_ROUTERS = [
+#     "salesforce.router.ModelRouter"
+# ]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -171,9 +182,9 @@ STATICFILES_FINDERS = (
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
+
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
-
 
 django_heroku.settings(locals())
 
