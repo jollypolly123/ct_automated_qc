@@ -8,7 +8,7 @@ import io
 def get_template():
     s3 = boto3.client('s3', aws_access_key_id="AKIAX6CEC3CGR3ZJ6DHQ",
                       aws_secret_access_key="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")
-    bucket_object = s3.get_object(Bucket='projectcharon', Key='static/CT-Report.xlsx')
+    bucket_object = s3.get_object(Bucket='projectcharon', Key='static/CT-Template.xlsx')
     content = bucket_object['Body'].read()
     wb = openpyxl.load_workbook(io.BytesIO(content))
     return wb
@@ -19,7 +19,7 @@ def upload_to_s3(file_obj):
                       aws_secret_access_key="JjSrkV3MrmPJ4S8idjOPAtklupHZhr8c4feMwhCv")
     virtual_workbook = io.BytesIO()
     file_obj.save(virtual_workbook)
-    s3.put_object(Body=virtual_workbook, Bucket='projectcharon', Key='CT-Report.xlsx')
+    s3.put_object(Body=virtual_workbook.getvalue(), Bucket='projectcharon', Key='CT-Report.xlsx')
 
 
 def publish_cc_wb(key):
@@ -69,6 +69,6 @@ if __name__ == "__main__":
     data_sheet = workbook["Data"]
     data_sheet['I61'] = 'Bingbong'
     data_sheet['I62'] = 'Bingbing'
-    print(data_sheet['I62'])
+    # data_sheet.row_dimensions[1].ht = 5
     upload_to_s3(workbook)
-    publish_cc_wb(cc_api_key)
+    # publish_cc_wb(cc_api_key)

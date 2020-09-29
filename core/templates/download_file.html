@@ -1,0 +1,38 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Daily QC</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="POST" action="/download_ct_qc_report">
+                        {% csrf_token %}
+                    <div class="card-header">
+                        <div class="card-title">Daily CT QC</div>
+                    </div>
+                    <div class="card-body">
+                    </div>
+                    <div class="card-action">
+                        <a href={{file_url}} class="btn btn-success" target="_new" download>Download Completed Report</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

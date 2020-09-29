@@ -7,7 +7,6 @@ Copyright (c) 2019 - present AppSeed.us
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from django.urls import reverse
 from django.template import loader
 from django.http import HttpResponse
 from django import template
@@ -16,11 +15,13 @@ from io import BytesIO
 import numpy as np
 from PIL import Image
 from base64 import b64encode
+import boto3
 
 from .models import Document, Report
 from .forms import DocumentForm
-from . import qa_tests_8_3
-from . import handle_excel
+from . import qa_tests_8_3, handle_excel, handle_pdf
+from django.conf import settings
+from datetime import date
 
 
 def administrator(user):
@@ -532,9 +533,9 @@ def radiation_beam(request):
         request.session['max_3'] = request.POST.get("max_3", "No Value")
         request.session['max_4'] = request.POST.get("max_4", "No Value")
         request.session['max_5'] = request.POST.get("max_5", "No Value")
-        return redirect('kvp_accuracy_and_hvl_measurement.html')
+        return redirect('app:kvp')
     else:
-        return redirect('radiation_beam_width.html')
+        return render(request, 'radiation_beam_width.html')
 
 
 @login_required(login_url="/login/")
@@ -549,9 +550,9 @@ def kvp(request):
         request.session['hvl_100'] = request.POST.get("hvl_100", "No Value")
         request.session['hvl_120'] = request.POST.get("hvl_120", "No Value")
         request.session['hvl_140'] = request.POST.get("hvl_140", "No Value")
-        return redirect('ct_dosimetry.html')
+        return redirect('app:ct_dosimetry')
     else:
-        return redirect('kvp_accuracy_and_hvl_measurement.html')
+        return render(request, 'kvp_accuracy_and_hvl_measurement.html')
 
 
 @login_required(login_url="/login/")
@@ -584,7 +585,7 @@ def ct_dosimetry(request):
         request.session['pa_12_3'] = request.POST.get("pa_12_3", "No Value")
         return redirect('soft-copy_quality_control.html')
     else:
-        return redirect('ct_dosimetry.html')
+        return render(request, 'ct_dosimetry.html')
 
 
 @login_required(login_url="/login/")
@@ -874,3 +875,161 @@ def display_water_header(request, slug):
                   {'images': images,
                    'slug': slug,
                    'header': elements})
+
+
+@login_required(login_url="/login/")
+@user_passes_test(radiology_technician, login_url='permission_not_granted')
+def artifacts(request):
+    if request.method == 'POST':
+        request.session['artifacts_1'] = request.POST.get("artifacts_1", "No value")
+        request.session['artifacts_2'] = request.POST.get("artifacts_2", "No value")
+        request.session['artifacts_3'] = request.POST.get("artifacts_3", "No value")
+        request.session['artifacts_4'] = request.POST.get("artifacts_4", "No value")
+        request.session['artifacts_5'] = request.POST.get("artifacts_5", "No value")
+        request.session['artifacts_6'] = request.POST.get("artifacts_6", "No value")
+        request.session['artifacts_7'] = request.POST.get("artifacts_7", "No value")
+        request.session['artifacts_8'] = request.POST.get("artifacts_8", "No value")
+        request.session['artifacts_9'] = request.POST.get("artifacts_9", "No value")
+        request.session['artifacts_10'] = request.POST.get("artifacts_10", "No value")
+        request.session['artifacts_11'] = request.POST.get("artifacts_11", "No value")
+        request.session['artifacts_12'] = request.POST.get("artifacts_12", "No value")
+        request.session['artifacts_13'] = request.POST.get("artifacts_13", "No value")
+        request.session['artifacts_14'] = request.POST.get("artifacts_14", "No value")
+        request.session['artifacts_15'] = request.POST.get("artifacts_15", "No value")
+        request.session['artifacts_16'] = request.POST.get("artifacts_16", "No value")
+        request.session['artifacts_17'] = request.POST.get("artifacts_17", "No value")
+        request.session['artifacts_18'] = request.POST.get("artifacts_18", "No value")
+        request.session['artifacts_19'] = request.POST.get("artifacts_19", "No value")
+        request.session['artifacts_20'] = request.POST.get("artifacts_20", "No value")
+        request.session['artifacts_21'] = request.POST.get("artifacts_21", "No value")
+        request.session['artifacts_22'] = request.POST.get("artifacts_22", "No value")
+        request.session['artifacts_23'] = request.POST.get("artifacts_23", "No value")
+        request.session['artifacts_24'] = request.POST.get("artifacts_24", "No value")
+        request.session['artifacts_25'] = request.POST.get("artifacts_25", "No value")
+        request.session['artifacts_26'] = request.POST.get("artifacts_26", "No value")
+        request.session['artifacts_27'] = request.POST.get("artifacts_27", "No value")
+        request.session['artifacts_28'] = request.POST.get("artifacts_28", "No value")
+        request.session['artifacts_29'] = request.POST.get("artifacts_29", "No value")
+        request.session['artifacts_30'] = request.POST.get("artifacts_30", "No value")
+        request.session['artifacts_31'] = request.POST.get("artifacts_31", "No value")
+        return redirect('app:input_pdf_data')
+    else:
+        return render(request, 'ct_qc_form.html')
+
+
+@login_required(login_url="/login/")
+@user_passes_test(radiology_technician, login_url='permission_not_granted')
+def input_pdf_data(request):
+    from PyPDF2 import PdfFileReader
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.pagesizes import letter
+    packet = BytesIO()
+    can = canvas.Canvas(packet, pagesize=letter)
+    can.setFillColorRGB(0.2, 0.5, 0.3)
+    # can.drawString(120, 670, try_float(request.session['water_1']))
+    # can.drawString(120, 652, try_float(request.session['water_2']))
+    # can.drawString(120, 635, try_float(request.session['water_3']))
+    # can.drawString(120, 618, try_float(request.session['water_4']))
+    # can.drawString(120, 600, try_float(request.session['water_5']))
+    # can.drawString(120, 582, try_float(request.session['water_6']))
+    # can.drawString(120, 564, try_float(request.session['water_7']))
+    # can.drawString(120, 546, try_float(request.session['water_8']))
+    # can.drawString(120, 528, try_float(request.session['water_9']))
+    # can.drawString(120, 510, try_float(request.session['water_10']))
+    # can.drawString(120, 494, try_float(request.session['water_11']))
+    # can.drawString(120, 476, try_float(request.session['water_12']))
+    # can.drawString(120, 458, try_float(request.session['water_13']))
+    # can.drawString(120, 440, try_float(request.session['water_14']))
+    # can.drawString(120, 423, try_float(request.session['water_15']))
+    # can.drawString(120, 406, try_float(request.session['water_16']))
+    # can.drawString(120, 388, try_float(request.session['water_17']))
+    # can.drawString(120, 370, try_float(request.session['water_18']))
+    # can.drawString(120, 352, try_float(request.session['water_19']))
+    # can.drawString(120, 334, try_float(request.session['water_20']))
+    # can.drawString(120, 316, try_float(request.session['water_21']))
+    # can.drawString(120, 297, try_float(request.session['water_22']))
+    # can.drawString(120, 280, try_float(request.session['water_23']))
+    # can.drawString(120, 262, try_float(request.session['water_24']))
+    # can.drawString(120, 245, try_float(request.session['water_25']))
+    # can.drawString(120, 228, try_float(request.session['water_26']))
+    # can.drawString(120, 210, try_float(request.session['water_27']))
+    # can.drawString(120, 192, try_float(request.session['water_28']))
+    # can.drawString(120, 174, try_float(request.session['water_29']))
+    # can.drawString(120, 156, try_float(request.session['water_30']))
+    # can.drawString(120, 138, try_float(request.session['water_31']))
+    #
+    # can.drawString(177, 670, try_float(request.session['noise_1']))
+    # can.drawString(177, 652, try_float(request.session['noise_2']))
+    # can.drawString(177, 635, try_float(request.session['noise_3']))
+    # can.drawString(177, 618, try_float(request.session['noise_4']))
+    # can.drawString(177, 600, try_float(request.session['noise_5']))
+    # can.drawString(177, 582, try_float(request.session['noise_6']))
+    # can.drawString(177, 564, try_float(request.session['noise_7']))
+    # can.drawString(177, 546, try_float(request.session['noise_8']))
+    # can.drawString(177, 528, try_float(request.session['noise_9']))
+    # can.drawString(177, 510, try_float(request.session['noise_10']))
+    # can.drawString(177, 494, try_float(request.session['noise_11']))
+    # can.drawString(177, 476, try_float(request.session['noise_12']))
+    # can.drawString(177, 458, try_float(request.session['noise_13']))
+    # can.drawString(177, 440, try_float(request.session['noise_14']))
+    # can.drawString(177, 423, try_float(request.session['noise_15']))
+    # can.drawString(177, 406, try_float(request.session['noise_16']))
+    # can.drawString(177, 388, try_float(request.session['noise_17']))
+    # can.drawString(177, 370, try_float(request.session['noise_18']))
+    # can.drawString(177, 352, try_float(request.session['noise_19']))
+    # can.drawString(177, 334, try_float(request.session['noise_20']))
+    # can.drawString(177, 316, try_float(request.session['noise_21']))
+    # can.drawString(177, 297, try_float(request.session['noise_22']))
+    # can.drawString(177, 280, try_float(request.session['noise_23']))
+    # can.drawString(177, 262, try_float(request.session['noise_24']))
+    # can.drawString(177, 245, try_float(request.session['noise_25']))
+    # can.drawString(177, 228, try_float(request.session['noise_26']))
+    # can.drawString(177, 210, try_float(request.session['noise_27']))
+    # can.drawString(177, 192, try_float(request.session['noise_28']))
+    # can.drawString(177, 174, try_float(request.session['noise_29']))
+    # can.drawString(177, 156, try_float(request.session['noise_30']))
+    # can.drawString(177, 138, try_float(request.session['noise_31']))
+
+    can.drawString(225, 670, request.session['artifacts_1'])
+    can.drawString(225, 652, request.session['artifacts_2'])
+    can.drawString(225, 635, request.session['artifacts_3'])
+    can.drawString(225, 618, request.session['artifacts_4'])
+    can.drawString(225, 600, request.session['artifacts_5'])
+    can.drawString(225, 582, request.session['artifacts_6'])
+    can.drawString(225, 564, request.session['artifacts_7'])
+    can.drawString(225, 546, request.session['artifacts_8'])
+    can.drawString(225, 528, request.session['artifacts_9'])
+    can.drawString(225, 510, request.session['artifacts_10'])
+    can.drawString(225, 494, request.session['artifacts_11'])
+    can.drawString(225, 476, request.session['artifacts_12'])
+    can.drawString(225, 458, request.session['artifacts_13'])
+    can.drawString(225, 440, request.session['artifacts_14'])
+    can.drawString(225, 423, request.session['artifacts_15'])
+    can.drawString(225, 406, request.session['artifacts_16'])
+    can.drawString(225, 388, request.session['artifacts_17'])
+    can.drawString(225, 370, request.session['artifacts_18'])
+    can.drawString(225, 352, request.session['artifacts_19'])
+    can.drawString(225, 334, request.session['artifacts_20'])
+    can.drawString(225, 316, request.session['artifacts_21'])
+    can.drawString(225, 297, request.session['artifacts_22'])
+    can.drawString(225, 280, request.session['artifacts_23'])
+    can.drawString(225, 262, request.session['artifacts_24'])
+    can.drawString(225, 245, request.session['artifacts_25'])
+    can.drawString(225, 228, request.session['artifacts_26'])
+    can.drawString(225, 210, request.session['artifacts_27'])
+    can.drawString(225, 192, request.session['artifacts_28'])
+    can.drawString(225, 174, request.session['artifacts_29'])
+    can.drawString(225, 156, request.session['artifacts_30'])
+    can.drawString(225, 138, request.session['artifacts_31'])
+    can.save()
+    packet.seek(0)
+    new_pdf = PdfFileReader(packet)
+
+    existing = handle_pdf.get_template()
+    handle_pdf.combine_pdfs(existing, new_pdf)
+    return redirect('app:download_ct_qc_report')
+
+
+def download_ct_qc_report(request):
+    file_url = "https://projectcharon.s3.amazonaws.com/CT_QC_" + date.today().strftime("%m_%d_%Y") + '.pdf'
+    return render(request, 'download_file.html', {'file_url': file_url})

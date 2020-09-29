@@ -1,0 +1,170 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Daily QC</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form method="POST" action="/artifacts">
+                        {% csrf_token %}
+                    <div class="card-header">
+                        <div class="card-title">Artifacts</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2 col-lg-4">
+                                <div class="form-group">
+                                    <label for="artifacts_1">1 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_1" id="artifacts_1" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_2">2 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_2" id="artifacts_2" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_3">3 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_3" id="artifacts_3" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_4">4 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_4" id="artifacts_4" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_5">5 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_5" id="artifacts_5" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_6">6 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_6" id="artifacts_6" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_7">7 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_7" id="artifacts_7" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_2">8 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_8" id="artifacts_8" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_3">9 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_9" id="artifacts_9" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_4">10 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_10" id="artifacts_10" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="artifacts_5">11 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_11" id="artifacts_11" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_6">12 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_12" id="artifacts_12" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_13">13 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_13" id="artifacts_13" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_2">14 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_14" id="artifacts_14" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_3">15 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_15" id="artifacts_15" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_4">16 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_16" id="artifacts_16" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_5">17 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_17" id="artifacts_17" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_6">18 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_18" id="artifacts_18" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_19">19 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_19" id="artifacts_19" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_2">20 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_20" id="artifacts_20" placeholder="Enter Value">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-lg-4">
+                                <div class="form-group">
+                                    <label for="artifacts_3">21 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_21" id="artifacts_21" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_4">22 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_22" id="artifacts_22" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_5">23 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_23" id="artifacts_23" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_6">24 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_24" id="artifacts_24" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_25">25 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_25" id="artifacts_25" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_2">26 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_26" id="artifacts_26" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_3">27 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_27" id="artifacts_27" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_4">28 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_28" id="artifacts_28" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_5">29 (Axial)</label>
+                                    <input type="text" class="form-control" name="artifacts_29" id="artifacts_29" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_6">30 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_30" id="artifacts_30" placeholder="Enter Value">
+                                </div>
+                                <div class="form-group">
+                                    <label for="artifacts_6">31 (Helical)</label>
+                                    <input type="text" class="form-control" name="artifacts_31" id="artifacts_31" placeholder="Enter Value">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

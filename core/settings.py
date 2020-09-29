@@ -92,9 +92,9 @@ DATABASES = {
     #     'ENGINE': 'salesforce.backend',
     #     'CONSUMER_KEY': '',                # 'client_id'   in OAuth2 terminology
     #     'CONSUMER_SECRET': '',             # 'client_secret'
-    #     'USER': '',
-    #     'PASSWORD': '',
-    #     'HOST': 'https://test.salesforce.com',
+    #     'USER': 'rachelle.hu123@gmail.com',
+    #     'PASSWORD': 'Micron66',
+    #     'HOST': 'https://login.salesforce.com',
     # }
 }
 
