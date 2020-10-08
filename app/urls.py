@@ -41,8 +41,10 @@ urlpatterns = [
     path('soft_copy', views.soft_copy, name='soft_copy'),
     path('water_ct', views.water_ct, name='water_ct'),
     path('water_ct/<slug:slug>', views.display_water_header, name='display_water_header'),
-    path('artifacts', views.artifacts, name='artifacts'),
-    path('daily_ct_qc_report', views.input_pdf_data, name='input_pdf_data'),
+    path('technologist_qc', views.technologist_qc, name='technologist_qc'),
+    path('technologist_reports', views.technologist_reports, name='technologist_reports'),
+    path('technologist_report/<slug:slug>', views.technologist_report, name='technologist_report'),
     path('download_ct_qc_report', views.download_ct_qc_report, name='download_ct_qc_report'),
+    path('download_then_dashboard', views.download_then_dashboard, name='download_then_dashboard'),
     path('deleted', views.delete_files, name='delete_files'),
 ]

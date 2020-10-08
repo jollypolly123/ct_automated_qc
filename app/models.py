@@ -19,6 +19,8 @@ import numpy as np
 import random
 import os
 import re
+from datetime import date
+import jsonfield
 
 
 # -*- coding: utf-8 -*-
@@ -58,3 +60,18 @@ class Document(models.Model):
 class Report(models.Model):
     name = models.CharField(max_length=100, default='report')
     file = models.FileField(upload_to='reports/')
+
+
+class CT_QC_Report(models.Model):
+    date = date.today().strftime("%b-%d-%Y")
+    name = models.CharField(max_length=100, default=date)
+    user = models.CharField(max_length=100, default='')
+    daily_qc = jsonfield.JSONField()
+    monthly_qc = jsonfield.JSONField()
+
+    def save(self, *args, **kwargs):
+        try:
+            CT_QC_Report.objects.get(name=self.name).delete()
+        except:
+            pass
+        super(CT_QC_Report, self).save(*args, **kwargs)

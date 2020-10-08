@@ -15,9 +15,13 @@ from io import BytesIO
 import numpy as np
 from PIL import Image
 from base64 import b64encode
-import boto3
+from PyPDF2 import PdfFileReader
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from django.http import FileResponse
+from urllib.request import urlopen
 
-from .models import Document, Report
+from .models import Document, Report, CT_QC_Report
 from .forms import DocumentForm
 from . import qa_tests_8_3, handle_excel, handle_pdf
 from django.conf import settings
@@ -879,84 +883,78 @@ def display_water_header(request, slug):
 
 @login_required(login_url="/login/")
 @user_passes_test(radiology_technician, login_url='permission_not_granted')
-def artifacts(request):
+def technologist_qc(request):
     if request.method == 'POST':
-        request.session['artifacts_1'] = request.POST.get("artifacts_1", "No value")
-        request.session['artifacts_2'] = request.POST.get("artifacts_2", "No value")
-        request.session['artifacts_3'] = request.POST.get("artifacts_3", "No value")
-        request.session['artifacts_4'] = request.POST.get("artifacts_4", "No value")
-        request.session['artifacts_5'] = request.POST.get("artifacts_5", "No value")
-        request.session['artifacts_6'] = request.POST.get("artifacts_6", "No value")
-        request.session['artifacts_7'] = request.POST.get("artifacts_7", "No value")
-        request.session['artifacts_8'] = request.POST.get("artifacts_8", "No value")
-        request.session['artifacts_9'] = request.POST.get("artifacts_9", "No value")
-        request.session['artifacts_10'] = request.POST.get("artifacts_10", "No value")
-        request.session['artifacts_11'] = request.POST.get("artifacts_11", "No value")
-        request.session['artifacts_12'] = request.POST.get("artifacts_12", "No value")
-        request.session['artifacts_13'] = request.POST.get("artifacts_13", "No value")
-        request.session['artifacts_14'] = request.POST.get("artifacts_14", "No value")
-        request.session['artifacts_15'] = request.POST.get("artifacts_15", "No value")
-        request.session['artifacts_16'] = request.POST.get("artifacts_16", "No value")
-        request.session['artifacts_17'] = request.POST.get("artifacts_17", "No value")
-        request.session['artifacts_18'] = request.POST.get("artifacts_18", "No value")
-        request.session['artifacts_19'] = request.POST.get("artifacts_19", "No value")
-        request.session['artifacts_20'] = request.POST.get("artifacts_20", "No value")
-        request.session['artifacts_21'] = request.POST.get("artifacts_21", "No value")
-        request.session['artifacts_22'] = request.POST.get("artifacts_22", "No value")
-        request.session['artifacts_23'] = request.POST.get("artifacts_23", "No value")
-        request.session['artifacts_24'] = request.POST.get("artifacts_24", "No value")
-        request.session['artifacts_25'] = request.POST.get("artifacts_25", "No value")
-        request.session['artifacts_26'] = request.POST.get("artifacts_26", "No value")
-        request.session['artifacts_27'] = request.POST.get("artifacts_27", "No value")
-        request.session['artifacts_28'] = request.POST.get("artifacts_28", "No value")
-        request.session['artifacts_29'] = request.POST.get("artifacts_29", "No value")
-        request.session['artifacts_30'] = request.POST.get("artifacts_30", "No value")
-        request.session['artifacts_31'] = request.POST.get("artifacts_31", "No value")
-        return redirect('app:input_pdf_data')
+        new_form = CT_QC_Report.objects.create()
+        new_form.user = request.user.username
+        daily_qc = {
+            'artifacts_yn': request.POST.get("artifacts_yn", "No value"),
+            'artifacts_comments': request.POST.get("artifacts_comments", ""),
+            'p_f': request.POST.get("p_f", "No value")[0],
+            'warm_up': request.POST.getlist("warm_up", " ")[0],
+            'air_cals': request.POST.getlist("air_cals", " ")[0]
+        }
+        new_form.daily_qc = daily_qc
+        if request.POST.getlist("monthly", None):
+            monthly_qc = {
+                'gantry_th': request.POST.getlist("gantry_th", " ")[0],
+                'gantry_tp': request.POST.getlist("gantry_tp", " ")[0],
+                'gantry_ai': request.POST.getlist("gantry_ai", " ")[0],
+                'gantry_ll': request.POST.getlist("gantry_ll", " ")[0],
+                'gantry_as': request.POST.getlist("gantry_as", " ")[0],
+                'gantry_xo': request.POST.getlist("gantry_xo", " ")[0],
+                'cc_es': request.POST.getlist("cc_es", " ")[0],
+                'cc_ps': request.POST.getlist("cc_ps", " ")[0],
+                'cc_xo': request.POST.getlist("cc_xo", " ")[0],
+                'cc_wl': request.POST.getlist("cc_wl", " ")[0],
+                'cc_is': request.POST.getlist("cc_is", " ")[0],
+                'other_pp': request.POST.getlist("other_pp", " ")[0],
+                'other_sr': request.POST.getlist("other_sr", " ")[0],
+            }
+            new_form.monthly_qc = monthly_qc
+        new_form.save()
+        return redirect('app:technologist_reports')
     else:
-        return render(request, 'ct_qc_form.html')
+        try:
+            this_month = date.today().strftime("%b")
+            recent_rep = CT_QC_Report.objects.filter(name__icontains=this_month)
+            today_date = date.today().strftime("%b-%d-%Y")
+            CT_QC_Report.objects.get(name=today_date)
+            for rep in recent_rep:
+                if not rep.monthly_qc:
+                    continue
+                else:
+                    return render(request, 'ct_qc_form.html',
+                                  {'daily_message': 'You have already completed this form today.',
+                                   'monthly_message': 'You have already completed this portion this month.'})
+            return render(request, 'ct_qc_form.html',
+                          {'daily_message': 'You have already completed this form today.'})
+        except:
+            return render(request, 'ct_qc_form.html')
 
 
 @login_required(login_url="/login/")
 @user_passes_test(radiology_technician, login_url='permission_not_granted')
-def input_pdf_data(request):
-    from PyPDF2 import PdfFileReader
-    from reportlab.pdfgen import canvas
-    from reportlab.lib.pagesizes import letter
+def technologist_reports(request):
+    reports = CT_QC_Report.objects.all()
+    return render(request, 'ct_qc_reports.html', {'reports': reports})
+
+
+@login_required(login_url="/login/")
+@user_passes_test(radiology_technician, login_url='permission_not_granted')
+def technologist_report(request, slug):
+    report = CT_QC_Report.objects.get(name=slug)
+    return render(request, 'technologist_report.html',
+                  {'report': report})
+
+
+def download_ct_qc_report(request):
     packet = BytesIO()
     can = canvas.Canvas(packet, pagesize=letter)
     can.setFillColorRGB(0.2, 0.5, 0.3)
     # can.drawString(120, 670, try_float(request.session['water_1']))
-    # can.drawString(120, 652, try_float(request.session['water_2']))
-    # can.drawString(120, 635, try_float(request.session['water_3']))
-    # can.drawString(120, 618, try_float(request.session['water_4']))
-    # can.drawString(120, 600, try_float(request.session['water_5']))
-    # can.drawString(120, 582, try_float(request.session['water_6']))
-    # can.drawString(120, 564, try_float(request.session['water_7']))
-    # can.drawString(120, 546, try_float(request.session['water_8']))
-    # can.drawString(120, 528, try_float(request.session['water_9']))
-    # can.drawString(120, 510, try_float(request.session['water_10']))
-    # can.drawString(120, 494, try_float(request.session['water_11']))
-    # can.drawString(120, 476, try_float(request.session['water_12']))
-    # can.drawString(120, 458, try_float(request.session['water_13']))
-    # can.drawString(120, 440, try_float(request.session['water_14']))
-    # can.drawString(120, 423, try_float(request.session['water_15']))
-    # can.drawString(120, 406, try_float(request.session['water_16']))
-    # can.drawString(120, 388, try_float(request.session['water_17']))
-    # can.drawString(120, 370, try_float(request.session['water_18']))
-    # can.drawString(120, 352, try_float(request.session['water_19']))
-    # can.drawString(120, 334, try_float(request.session['water_20']))
-    # can.drawString(120, 316, try_float(request.session['water_21']))
-    # can.drawString(120, 297, try_float(request.session['water_22']))
-    # can.drawString(120, 280, try_float(request.session['water_23']))
-    # can.drawString(120, 262, try_float(request.session['water_24']))
-    # can.drawString(120, 245, try_float(request.session['water_25']))
-    # can.drawString(120, 228, try_float(request.session['water_26']))
-    # can.drawString(120, 210, try_float(request.session['water_27']))
-    # can.drawString(120, 192, try_float(request.session['water_28']))
-    # can.drawString(120, 174, try_float(request.session['water_29']))
-    # can.drawString(120, 156, try_float(request.session['water_30']))
-    # can.drawString(120, 138, try_float(request.session['water_31']))
+
+    # can.drawString(225, 670, request.session['artifacts_1'])
     #
     # can.drawString(177, 670, try_float(request.session['noise_1']))
     # can.drawString(177, 652, try_float(request.session['noise_2']))
@@ -990,46 +988,21 @@ def input_pdf_data(request):
     # can.drawString(177, 156, try_float(request.session['noise_30']))
     # can.drawString(177, 138, try_float(request.session['noise_31']))
 
-    can.drawString(225, 670, request.session['artifacts_1'])
-    can.drawString(225, 652, request.session['artifacts_2'])
-    can.drawString(225, 635, request.session['artifacts_3'])
-    can.drawString(225, 618, request.session['artifacts_4'])
-    can.drawString(225, 600, request.session['artifacts_5'])
-    can.drawString(225, 582, request.session['artifacts_6'])
-    can.drawString(225, 564, request.session['artifacts_7'])
-    can.drawString(225, 546, request.session['artifacts_8'])
-    can.drawString(225, 528, request.session['artifacts_9'])
-    can.drawString(225, 510, request.session['artifacts_10'])
-    can.drawString(225, 494, request.session['artifacts_11'])
-    can.drawString(225, 476, request.session['artifacts_12'])
-    can.drawString(225, 458, request.session['artifacts_13'])
-    can.drawString(225, 440, request.session['artifacts_14'])
-    can.drawString(225, 423, request.session['artifacts_15'])
-    can.drawString(225, 406, request.session['artifacts_16'])
-    can.drawString(225, 388, request.session['artifacts_17'])
-    can.drawString(225, 370, request.session['artifacts_18'])
-    can.drawString(225, 352, request.session['artifacts_19'])
-    can.drawString(225, 334, request.session['artifacts_20'])
-    can.drawString(225, 316, request.session['artifacts_21'])
-    can.drawString(225, 297, request.session['artifacts_22'])
-    can.drawString(225, 280, request.session['artifacts_23'])
-    can.drawString(225, 262, request.session['artifacts_24'])
-    can.drawString(225, 245, request.session['artifacts_25'])
-    can.drawString(225, 228, request.session['artifacts_26'])
-    can.drawString(225, 210, request.session['artifacts_27'])
-    can.drawString(225, 192, request.session['artifacts_28'])
-    can.drawString(225, 174, request.session['artifacts_29'])
-    can.drawString(225, 156, request.session['artifacts_30'])
-    can.drawString(225, 138, request.session['artifacts_31'])
     can.save()
     packet.seek(0)
     new_pdf = PdfFileReader(packet)
 
     existing = handle_pdf.get_template()
     handle_pdf.combine_pdfs(existing, new_pdf)
-    return redirect('app:download_ct_qc_report')
+    name = "CT_QC_" + date.today().strftime("%m_%d_%Y") + '.pdf'
+    file_url = "https://projectcharon.s3.amazonaws.com/" + name
+    file_open = urlopen(file_url)
+    response = FileResponse(file_open, content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename="%s"' % name
+    # return render(request, 'download_file.html', {'file_url': file_url})
+    return response
 
 
-def download_ct_qc_report(request):
-    file_url = "https://projectcharon.s3.amazonaws.com/CT_QC_" + date.today().strftime("%m_%d_%Y") + '.pdf'
-    return render(request, 'download_file.html', {'file_url': file_url})
+def download_then_dashboard(request):
+    download_ct_qc_report(request)
+    return redirect('app:dashboard')

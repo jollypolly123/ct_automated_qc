@@ -93,7 +93,7 @@ DATABASES = {
     #     'CONSUMER_KEY': '',                # 'client_id'   in OAuth2 terminology
     #     'CONSUMER_SECRET': '',             # 'client_secret'
     #     'USER': 'rachelle.hu123@gmail.com',
-    #     'PASSWORD': 'Micron66',
+    #     'PASSWORD': 'Micron66EEv8ljPpAbUjIIHxrS0wzSGV',
     #     'HOST': 'https://login.salesforce.com',
     # }
 }

@@ -1,0 +1,134 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Technologist QC Report {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">Technologist QC Report</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header row">
+                        <div class="col-md-2 col-lg-6">
+                            <div class="h5">Date Completed: {{report.name}}</div></div>
+                        <div class="col-md-2 col-lg-6">
+                            <div class="h5">Completed By: {{report.user}}</div></div>
+                    </div>
+                    <div class="card-header row">
+                        <div class="col-md-2 col-lg-4">
+                            <div class="h3">Daily</div>
+                            <table class="display table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="col">Artifacts</th>
+                                    <td>{{report.daily_qc.artifacts_yn}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Artifacts Comments</th>
+                                    <td>{{report.daily_qc.artifacts_comments}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Pass/Fail</th>
+                                    <td>{{report.daily_qc.p_f}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Warm Up</th>
+                                    <td>{{report.daily_qc.warm_up}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Air Cals</th>
+                                    <td>{{report.daily_qc.air_cals}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                        <div class="col-md-2 col-lg-4">
+                            <div class="h3">Monthly</div>
+                            {% if report.monthly_qc %}
+                            <table class="display table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="col">Table Height Indicator Functioning</th>
+                                    <td>{{report.monthly_qc.gantry_th}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Table Position Indicator Functioning</th>
+                                    <td>{{report.monthly_qc.gantry_tp}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Angulation indicator functioning</th>
+                                    <td>{{report.monthly_qc.gantry_ai}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Laser localization light functioning</th>
+                                    <td>{{report.monthly_qc.gantry_ll}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Acceptable smoothness of table motion</th>
+                                    <td>{{report.monthly_qc.gantry_as}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Xray on indicator functioning</th>
+                                    <td>{{report.monthly_qc.gantry_xo}}</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-2 col-lg-4">
+                            <table class="display table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="col">Exposure switch functioning</th>
+                                    <td>{{report.monthly_qc.cc_es}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Panel switches/lights/meters working</th>
+                                    <td>{{report.monthly_qc.cc_ps}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Xray on indicator functioning</th>
+                                    <td>{{report.monthly_qc.cc_xo}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Warning labels present</th>
+                                    <td>{{report.monthly_qc.cc_wl}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Intercom system functioning</th>
+                                    <td>{{report.monthly_qc.cc_is}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Postings Present</th>
+                                    <td>{{report.monthly_qc.other_pp}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Service records maintained/accessible</th>
+                                    <td>{{report.monthly_qc.other_sr}}</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                            {% else %}
+                            <div class="h5">The monthly form was not completed on {{report.name}}.</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <a href="{% url 'app:technologist_reports' %}" class="btn btn-secondary">Return</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

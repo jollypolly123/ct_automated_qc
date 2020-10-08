@@ -1,0 +1,65 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Forms {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="page-inner">
+        <div class="page-header">
+            <h4 class="page-title">CT Equipment Performance Evaluation</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Technologist QC Reports</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="basic-datatables" class="display table table-striped table-hover" >
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Technologist</th>
+                                        <th scope="col">Monthly</th>
+                                        <th scope="col">View Data</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for report in reports %}
+                                    <tr>
+                                        <td>{{report.name}}</td>
+                                        <td>{{report.user}}</td>
+                                        {% if report.monthly_qc %}
+                                        <td>Yes</td>
+                                        {% else %}
+                                        <td>No</td>
+                                        {% endif %}
+                                        <td><a href="{% url 'app:technologist_report' slug=report.name %}">Open</a></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+    <script >
+		$(document).ready(function() {
+			$('#basic-datatables').DataTable({
+			});
+		});
+	</script>
+{% endblock javascripts %}

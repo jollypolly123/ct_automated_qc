@@ -69,6 +69,5 @@ if __name__ == "__main__":
     data_sheet = workbook["Data"]
     data_sheet['I61'] = 'Bingbong'
     data_sheet['I62'] = 'Bingbing'
-    # data_sheet.row_dimensions[1].ht = 5
     upload_to_s3(workbook)
     # publish_cc_wb(cc_api_key)

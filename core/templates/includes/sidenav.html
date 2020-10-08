@@ -4,9 +4,6 @@
 					
 			<div class="sidebar-wrapper scrollbar scrollbar-inner">
 				<div class="sidebar-content">
-
-					{% if user.is_authenticated and request.user|in_group:"medical_physicist" %}
-
 						<div class="user">
 							<div class="info">
 								<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -36,6 +33,9 @@
 										<p>Home</p>
 									</a>
 							</li>
+
+					{% if user.is_authenticated and request.user|in_group:"medical_physicist" %}
+
 							<li class="nav-item">
 								<a data-toggle="collapse" href="#steps">
 									<i class="fas fa-pen-square"></i>
@@ -146,147 +146,22 @@
 									<span class="sub-item">Database</span>
 								</a>
 							</li>
-
-<!--							{% if images %}-->
-<!--							{% with path=request.path|slice:"6:" %}-->
-<!--							<li style="padding: 0px 28px; color: #b9babf">-->
-<!--								<a>-->
-<!--									<h3 class="sub-item">Tests</h3>-->
-<!--								</a>-->
-<!--							</li>-->
-<!--							<li class="nav-item">-->
-<!--								<a data-toggle="collapse" href="#acr_ct">-->
-<!--									<i class="fas fa-pen-square"></i>-->
-<!--									<p>CT Measurements</p>-->
-<!--									<span class="caret"></span>-->
-<!--								</a>-->
-<!--								<div class="collapse" id="acr_ct">-->
-<!--									<ul class="nav nav-collapse">-->
-<!--										{% if request.path == "/images" %}-->
-<!--										<li>-->
-<!--											<a>-->
-<!--												<span class="sub-item">Please choose an image</span>-->
-<!--											</a>-->
-<!--										</li>-->
-<!--										{% else %}-->
-<!--										<li>-->
-<!--											{% with path='/test'|add:path|add:'/ct1' %}-->
-<!--											<a href={{path}}>-->
-<!--												<span class="sub-item">Module 1</span>-->
-<!--											</a>-->
-<!--											{% endwith %}-->
-<!--											{% with path='/test'|add:path|add:'/ct2' %}-->
-<!--											<a href={{path}}>-->
-<!--												<span class="sub-item">Module 2</span>-->
-<!--											</a>-->
-<!--											{% endwith %}-->
-<!--											{% with path='/test'|add:path|add:'/ct3' %}-->
-<!--											<a href={{path}}>-->
-<!--												<span class="sub-item">Module 3</span>-->
-<!--											</a>-->
-<!--											{% endwith %}-->
-<!--											{% with path='/test'|add:path|add:'/ct4' %}-->
-<!--											<a href="#">-->
-<!--												<span class="sub-item">Module 4</span>-->
-<!--											</a>-->
-<!--											{% endwith %}-->
-<!--										</li>-->
-<!--										{% endif %}-->
-<!--									</ul>-->
-<!--								</div>-->
-<!--							</li>-->
-<!--							{% endwith %}-->
-<!--							{% endif %}-->
-							{% if results %}
+					{% endif %}
+					{% if user.is_authenticated and request.user|in_group:"radiology_technician" %}
 							<li style="padding: 0px 28px; color: #b9babf">
-								<a>
-									<h3 class="sub-item">Export Results</h3>
-								</a>
-							</li>
-								<li class="nav-item">
-									<a href="{% url 'app:database'%}">
-										<i class="fas fa-list"></i>
-										<span class="sub-item">PDF</span>
-									</a>
-								</li>
-							{% endif %}
-						</ul>
-					{% elif user.is_authenticated and request.user|in_group:"radiology_technician" %}
-						<div class="user">
-							<div class="info">
-								<a data-toggle="collapse" href="#collapse" aria-expanded="true">
-								</a>
-								<div class="clearfix"></div>
-
-								<div class="collapse in" id="collapse">
-									<ul class="nav">
-										<li>
-											<a href="#profile">
-												<span class="link-collapse">My Profile</span>
-											</a>
-										</li>
-										<li>
-											<a href={% url 'logout' %}>
-												<span class="link-collapse">Logout</span>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<ul class="nav nav-primary">
-							<li class="nav-item active">
-									<a href="/">
-										<i class="fas fa-home"></i>
-										<p>Home</p>
-									</a>
+								<br/>
+								<a><h3 class="sub-item">Technologist forms</h3></a>
 							</li>
 							<li class="nav-item">
-								<a data-toggle="collapse" href="#rad_tech">
-									<i class="fas fa-calendar-alt"></i>
-									<p>Daily QC</p>
-									<span class="caret"></span>
-								</a>
-								<div class="collapse" id="rad_tech">
-									<ul class="nav nav-collapse">
-<!--										<li class="nav-item">-->
-<!--											<a href="{% url 'app:water_ct' %}">-->
-<!--													Water CT and Standard Deviation-->
-<!--											</a>-->
-<!--										</li>-->
-										<li class="nav-item">
-											<a href="{% url 'app:artifacts' %}">
-													Artifacts
-											</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="nav-item">
-								<a href="#">
+								<a href="{% url 'app:technologist_qc' %}">
 									<i class="fas fa-calendar"></i>
-									<span class="sub-item">Monthly Visual Checklist</span>
+									<span class="sub-item">Technologist QC</span>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="/deleted">
-									<i class="fas fa-trash"></i>
-									<span class="sub-item">Delete All Files</span>
-								</a>
-							</li>
-							<li style="padding: 0px 28px; color: #b9babf">
-								<a><h3 class="sub-item">Data</h3></a>
-							</li>
-							<li class="nav-item">
-								<a href="{% url 'app:activities'%}">
-									<i class="fas fa-newspaper"></i>
-									<span class="sub-item">Activities</span>
-								</a>
-							</li>
-							<li class="nav-item">
-								<a href="{% url 'app:database'%}">
+								<a href="{% url 'app:technologist_reports' %}">
 									<i class="fas fa-database"></i>
-									<span class="sub-item">Database</span>
+									<span class="sub-item">Technologist QC Reports</span>
 								</a>
 							</li>
 						</ul>
