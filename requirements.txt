@@ -56,7 +56,6 @@ hyperlink==19.0.0
 idna==2.8
 imageio==2.8.0
 incremental==17.5.0
-
 ipykernel==5.1.2
 ipython==7.7.0
 ipython-genutils==0.2.0
@@ -66,6 +65,7 @@ jedi==0.15.1
 Jinja2==2.10.1
 jmespath==0.9.4
 joblib==0.13.2
+jsonfield==3.1.0
 jsonschema==3.0.2
 jupyter==1.0.0
 jupyter-client==5.3.1
