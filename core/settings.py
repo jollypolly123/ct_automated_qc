@@ -33,8 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'storages',
-    'salesforce',  ############################################# https://github.com/django-salesforce/django-salesforce
     'app',  # Enable the inner app
+#    'salesforce',  ############################################# https://github.com/django-salesforce/django-salesforce
 ]
 
 MIDDLEWARE = [
