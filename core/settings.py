@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',
     'app',  # Enable the inner app
-#    'salesforce',  ############################################# https://github.com/django-salesforce/django-salesforce
+    #'salesforce',  ############################################# https://github.com/django-salesforce/django-salesforce
 ]
 
 MIDDLEWARE = [
@@ -154,7 +154,7 @@ AWS_LOCATION = 'static'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'core\\static'),)
 
 # # Static files (CSS, JavaScript, Images)
