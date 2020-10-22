@@ -6,3 +6,33 @@ Access the online version at: https://projectcharon.herokuapp.com/
 https://github.com/HubSpot/hubspot-api-python for CRM
 https://www.acr.org/-/media/ACR/NOINDEX/QC-Manuals/CT_QCManual.pdf ACR CT Manual 2017
 https://blog.mailtrap.io/django-send-email/#A_simple_code_example_of_how_to_send_an_email
+
+<!--
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEA4ycIVfrQIhjxaoqUKhCNvYiOkaKjnwfV1HYYSlskUS8N2ipu
+iAPrg2m3fvT2T50IP7LV4Ipit2g/oQ6J7pcZUkgwVyk6nJ+795WaWEKFDyX/yA6h
+FwI+diXPc0QEKdQ1PoRndX3HEnriBX3vgRDSfE+qZfcPTzkXW+Zbg8Gdhn9q/GVT
+WABj2gWYhuHSoMuTiNFRFshpfjvjqIkksOokomyHQepNOtX0gmT5BUnegI65mlTs
+QSOIhA86sEuVhPUeUqXkq2+ulyKlUDnIQZmvI4Bl3wRLRqGatR9PIYUcK+0YgxfD
+lX8V1qUA7iCeoTWSAwGNwOt+HMDR3o+erXaupwIDAQABAoIBAChh8Q5wB354Vrrt
+JggQZ1Jxq37inhoQp4gc8paNe3hfWCQX9QyDPeRf7/pHDF78+NFyNqmzkHcwtlco
+oYbkH+FL6iQktUHQ9/a9BvJ36PXXeJCVYTgY8wfIEwhX6DGTg1+45De0A6caZ4I4
+cFLOrczh0NZNxM/9w1RYMJ7M1fdp68AnufvOHhBq+dv46riPRqe4LZn9t/TAXfuG
+xH76sV2qyF+E1Xwr0KsAHjDbrrQJPNLeuHOd62/kKMixtgeYSZWPTIwg9AXbQBDM
+Kelz4zv8sAFCXzmsR0ukSSwa5lh/qsqAtCscxXG3XU/vSdJAPibtsoAxq565Y6R1
+I2Q91dECgYEA/TYNHEM9obAg2j6KRlFH2mXWIooVgn5IKSz3wLmjwxG1lgz4hTus
+cBbNXKQzwJWmlHU6C2y4RT6WgFoadWB/gZTSwZE6Vr8nTdPKnrUJMhMcAnGVziIq
+VtmLt2DKZmweZ+8sqbsPG7XK4JoxrgCiGIJ9GaYoXhT7IY7Y10CJF+8CgYEA5aeB
+wwiKu1cn3N6HKz+Ka4fFpm1WVX0OO6N5qOu2m719tA0VALqwkB0W9V4qtvB3lXF9
+rk7RoX42jePK+2t9NfVJGri0vE41hrnBCadUxkdYw+Mmt2mDkf5CFFPazTqcUp7I
+p9IceEhtsSnBVKfTVuRMFcHyN0pZKL7KAhVXXMkCgYAeqG+371BEBm5D3nShhO/d
+Op1Nu0hVb3LPQXmR5Sg10ywYSePBRfNf8vLUd7EobTYpHXR0s6owAB761W4ErjVh
+/CH0e+ADZsucebs7shG19Whbx2Lq/WoA8AAhqN94vTiFPwk6V8LBiSZSQXkoZz05
+GHuLInoawhGSA5ivn0m6EwKBgQCAcG99UZCtd/AecgIs6OuUeinLi4jmZPuJ1ULc
+e3/0mETuZwahEshewTYu4oyHJfPri76btw88/6apMoY6mQI9JELPhA/o5ODAybCx
+onkiL5Lwc2Ea4RMpmocAcWmEsEvvVUipuzQa/X8Dv3OV0gq7pRD8dizuSVGWHSZD
+hgYHKQKBgQCsZHgs6We1DSEa8wmx+JIYXGN1ksxl6Vj2x4mlKOA4sJci5O2jbCjR
+lBrG2hLwWgG79kskS/xoJCyh158LOzYVWf9xunKF0OOpvW0J31oypiO9sVHOpiZo
+UibuBjfYjidXK991mUQOH9mDHTdjDipP2u2rwt6oieq1jSyDSkH4vg==
+-----END RSA PRIVATE KEY-----
+-->
