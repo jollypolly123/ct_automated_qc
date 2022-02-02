@@ -1,5 +1,4 @@
 # CT Automated QC
-## lol
 
 Access the online version at: https://projectcharon.herokuapp.com/
 
